@@ -1,25 +1,17 @@
 {
-  "name": "anomalia-cli",
+  "name": "crumbless-cli",
   "version": "0.1.0",
-  "description": "Command-line client for Crumbless — the social media AI autopilot.",
+  "description": "Command-line client for Crumbless — the Brand Growth OS.",
   "license": "AGPL-3.0-or-later",
-  "author": "Andrea Buttarelli",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/anomaliaso/anomalia.git",
-    "directory": "cli"
-  },
+  "author": "Crumbless",
   "homepage": "https://crumbless.ai",
-  "bugs": {
-    "url": "https://github.com/anomaliaso/anomalia/issues"
-  },
   "type": "module",
   "bin": {
-    "anomalia": "./cli.ts",
-    "anomalia-mcp": "./mcp/stdio.ts"
+    "crumbless": "./cli.ts",
+    "crumbless-mcp": "./mcp/stdio.ts"
   },
   "keywords": [
-    "anomalia",
+    "crumbless",
     "cli",
     "social-media",
     "mcp",
@@ -54,5 +46,8 @@
     "@types/node": "^26.2.0",
     "@vercel/node": "^5.9.7",
     "typescript": "5.8.3"
-  }
+  },
+  "contributors": [
+    "Andrea Buttarelli (original author, Anomalia)"
+  ]
 }

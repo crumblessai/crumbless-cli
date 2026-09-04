@@ -1,5 +1,5 @@
 {
-  "name": "anomalia-mcp-http",
+  "name": "crumbless-mcp-http",
   "private": true,
   "type": "module",
   "description": "Vercel Root Directory is this folder (mcp/). Handlers are prebundled under api/.",

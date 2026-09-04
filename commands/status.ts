@@ -4,7 +4,7 @@ import { section, statusBadge, formatDate, autopilotBadge, c, table, info } from
 
 export async function cmdStatus(slug: string) {
   const session = await loadSession();
-  if (!session) { console.error('Sessione scaduta o non trovata. Esegui: anomalia login'); process.exit(1); }
+  if (!session) { console.error('Sessione scaduta o non trovata. Esegui: crumbless login'); process.exit(1); }
 
   const detail = await api.getBrand(session.access_token, slug);
   const brand = detail.brand;

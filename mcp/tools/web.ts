@@ -231,7 +231,7 @@ export function registerWebTools(server: McpServer) {
     {
       title: 'Crumbless AI chat',
       description:
-        'Natural-language assistant with full read/write access to the brand (same as the web chatbot / `anomalia ai`). Prefer specific tools for deterministic ops; use chat for multi-step or exploratory work.',
+        'Natural-language assistant with full read/write access to the brand (same as the web chatbot / `crumbless ai`). Prefer specific tools for deterministic ops; use chat for multi-step or exploratory work.',
       inputSchema: z.object({
         slug,
         message: z.string().min(1),

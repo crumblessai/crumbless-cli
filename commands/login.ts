@@ -23,7 +23,7 @@ export async function cmdLogin(options: LoginOptions = {}) {
   if (existing) {
     console.log(`  Già autenticato come: ${c.bold(existing.user.email)}`);
     console.log(`  Sessione valida fino a: ${new Date(existing.expires_at * 1000).toLocaleDateString('it-IT')}`);
-    console.log(`\n  Per forzare il re-login, esegui: anomalia logout && anomalia login`);
+    console.log(`\n  Per forzare il re-login, esegui: crumbless logout && crumbless login`);
     return;
   }
 

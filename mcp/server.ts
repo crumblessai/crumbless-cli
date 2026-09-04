@@ -8,7 +8,7 @@ import { registerWebTools } from './tools/web.ts';
 export function createCrumblessMcpServer(): McpServer {
   const server = new McpServer(
     {
-      name: 'anomalia',
+      name: 'crumbless',
       version: '0.1.0',
       description:
         'Crumbless social media AI autopilot — manage brands, posts, plans, studio, SEO/GEO, and blog via OAuth.',
@@ -16,7 +16,7 @@ export function createCrumblessMcpServer(): McpServer {
     {
       instructions: [
         'Auth: browser OAuth via the `login` tool (local stdio/HTTP) or Authorization: Bearer <access_token> (remote HTTP). No static API tokens.',
-        'Local MCP shares ~/.config/anomalia/session.json with the Crumbless CLI.',
+        'Local MCP shares ~/.config/crumbless/session.json with the Crumbless CLI.',
         'Always start with `list_brands` (or `whoami`) to learn brand slugs.',
         'Post and article ids accept short unambiguous prefixes from list tools.',
         'Prefer specific tools for deterministic actions; use `chat` for open-ended multi-step work.',

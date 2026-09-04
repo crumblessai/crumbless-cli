@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "anomalia": {
+    "crumbless": {
       "type": "http",
       "url": "https://mcp.crumbless.ai/mcp"
     }

@@ -16,7 +16,7 @@ export async function cmdKeywords(slug: string, opts: { action: string }) {
   const { strategy, citations, updatedAt } = await api.getKeywords(t, slug);
 
   section('Keyword strategy');
-  if (!strategy) { info(`Nessuna strategy. Lancia: anomalia keywords ${slug} refresh\n`); return; }
+  if (!strategy) { info(`Nessuna strategy. Lancia: crumbless keywords ${slug} refresh\n`); return; }
 
   console.log(`  ${strategy.focusSummary}`);
   console.log(`  ${c.dim(`aggiornata ${formatDate(updatedAt)}`)}\n`);

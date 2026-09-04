@@ -1,14 +1,14 @@
 ---
-name: anomalia
+name: crumbless
 description: >-
-  Operate Crumbless (social media AI autopilot) via MCP tools or the anomalia CLI:
+  Operate Crumbless (social media AI autopilot) via MCP tools or the crumbless CLI:
   brands, posts, plans, studio, SEO/GEO, blog, and AI chat. Use when the user
   mentions Crumbless, crumbless.ai, approving social posts, editorial plans,
   SEO/GEO audits, or managing brand content from an agent.
 license: AGPL-3.0-or-later
 compatibility: >-
   Requires network access to crumbless.ai (or PUBLIC_APP_URL). Prefer Crumbless MCP
-  when connected; otherwise the anomalia CLI (Bun or installed binary) after OAuth login.
+  when connected; otherwise the crumbless CLI (Bun or installed binary) after OAuth login.
 metadata:
   author: andreabuttarelli
   version: "1.0.0"
@@ -20,29 +20,29 @@ metadata:
 # Crumbless
 
 Drive [Crumbless](https://crumbless.ai) — social media AI autopilot — through **MCP tools**
-(preferred) or the **`anomalia` CLI**. Same OAuth identity. **No static API tokens.**
+(preferred) or the **`crumbless` CLI**. Same OAuth identity. **No static API tokens.**
 
 ## Choose interface
 
 | Situation | Action |
 |-----------|--------|
 | Crumbless MCP is connected | Call MCP tools (`list_brands`, `list_posts`, …) |
-| MCP not available | Shell: `anomalia …` after `anomalia login` |
-| Vague / multi-step ask | MCP `chat` or `anomalia ai <slug> --message "…" --pipe` |
+| MCP not available | Shell: `crumbless …` after `crumbless login` |
+| Vague / multi-step ask | MCP `chat` or `crumbless ai <slug> --message "…" --pipe` |
 
 Never invent REST endpoints or API keys.
 
 ## Auth (always OAuth)
 
-1. **Local MCP / CLI:** shared session at `~/.config/anomalia/session.json`. MCP tool `login` opens the browser, or run `anomalia login`.
+1. **Local MCP / CLI:** shared session at `~/.config/crumbless/session.json`. MCP tool `login` opens the browser, or run `crumbless login`.
 2. **Remote MCP** (`https://mcp.crumbless.ai/mcp`): send `Authorization: Bearer <access_token>` (same JWT the CLI stores). Missing Bearer → 401.
-3. Verify with `whoami` / `list_brands` or `anomalia brands`.
+3. Verify with `whoami` / `list_brands` or `crumbless brands`.
 
 Setup details: [references/mcp.md](references/mcp.md).
 
 ## Operating rules
 
-1. Start with `list_brands` (or `anomalia brands`) to learn **slugs**.
+1. Start with `list_brands` (or `crumbless brands`) to learn **slugs**.
 2. Pass `slug` on every brand-scoped call.
 3. Post/article ids accept **short unambiguous prefixes** from list output — never guess if ambiguous.
 4. Prefer specific tools (`approve_posts`, `edit_post`, …) over `chat` for precise edits.
@@ -65,19 +65,19 @@ Setup details: [references/mcp.md](references/mcp.md).
 ## Install this skill
 
 ```bash
-npx skills add anomaliaso/anomalia --skill anomalia
+npx skills add crumblessso/crumbless --skill crumbless
 ```
 
 Or install the marketplace plugin (skill + remote MCP):
 
 ```bash
 # Claude Code
-/plugin marketplace add anomaliaso/anomalia
-/plugin install anomalia@anomalia
+/plugin marketplace add crumblessso/crumbless
+/plugin install crumbless@crumbless
 
 # Codex
-codex plugin marketplace add anomaliaso/anomalia
+codex plugin marketplace add crumblessso/crumbless
 ```
 
-Or copy this folder into `.cursor/skills/anomalia/` / `~/.claude/skills/anomalia/`.  
+Or copy this folder into `.cursor/skills/crumbless/` / `~/.claude/skills/crumbless/`.  
 Submit / packaging details: [`docs/plugins.md`](../../../../docs/plugins.md).

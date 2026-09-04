@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 function runningPath(): string {
   // Compiled Bun binary: execPath is the CLI itself.
   const exec = process.execPath.replace(/\\/g, '/');
-  if (/(^|\/)anomalia(-|$)/.test(exec.split('/').pop() ?? '')) return exec;
+  if (/(^|\/)crumbless(-|$)/.test(exec.split('/').pop() ?? '')) return exec;
   // Node/npm: argv[1] is the entry script under node_modules.
   if (process.argv[1]) return process.argv[1].replace(/\\/g, '/');
   return exec;
@@ -55,20 +55,20 @@ export async function cmdUpdate() {
   if (channel === 'homebrew') {
     console.log('  Installazione Homebrew rilevata');
     console.log(`\n  Per aggiornare:`);
-    console.log(`  brew update && brew upgrade anomalia\n`);
+    console.log(`  brew update && brew upgrade crumbless\n`);
     return;
   }
 
   if (channel === 'npm') {
     console.log('  Installazione npm rilevata');
     console.log(`\n  Per aggiornare:`);
-    console.log(`  npm install -g anomalia-cli@latest\n`);
+    console.log(`  npm install -g crumbless-cli@latest\n`);
     return;
   }
 
   console.log('  Download in corso…');
 
-  const url = `https://github.com/anomaliaso/anomalia/releases/latest/download/anomalia-${platformName}`;
+  const url = `https://github.com/anomaliaso/anomalia/releases/latest/download/crumbless-${platformName}`;
   const binPath = selfPath;
 
   try {
@@ -93,7 +93,7 @@ export async function cmdUpdate() {
   } catch (e) {
     console.error(`  ✗ Errore: ${String(e)}`);
     console.log(`\n  Aggiorna manualmente:`);
-    console.log(`  curl -sSL https://raw.githubusercontent.com/anomaliaso/anomalia/main/cli/scripts/install.sh | bash\n`);
+    console.log(`  curl -sSL https://raw.githubusercontent.com/crumblessso/crumbless/main/cli/scripts/install.sh | bash\n`);
     process.exit(1);
   }
 }

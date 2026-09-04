@@ -3,8 +3,8 @@ import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
 import { join } from 'path';
 
 const ROOT = join(import.meta.dir, '..', '..');
-const CANONICAL = join(ROOT, 'skills', 'anomalia');
-const PLUGIN = join(ROOT, 'plugins', 'anomalia', 'skills', 'anomalia');
+const CANONICAL = join(ROOT, 'skills', 'crumbless');
+const PLUGIN = join(ROOT, 'plugins', 'crumbless', 'skills', 'crumbless');
 
 function listFiles(dir: string, prefix = ''): string[] {
   const out: string[] = [];
@@ -18,7 +18,7 @@ function listFiles(dir: string, prefix = ''): string[] {
 }
 
 describe('plugin skill mirror', () => {
-  test('plugins/anomalia/skills/anomalia matches skills/anomalia', () => {
+  test('plugins/crumbless/skills/crumbless matches skills/crumbless', () => {
     expect(existsSync(join(CANONICAL, 'SKILL.md'))).toBe(true);
     expect(existsSync(join(PLUGIN, 'SKILL.md'))).toBe(true);
     const a = listFiles(CANONICAL);
@@ -33,9 +33,9 @@ describe('plugin skill mirror', () => {
 
   test('plugin manifests exist', () => {
     const MONO_ROOT = join(ROOT, '..');
-    expect(existsSync(join(ROOT, 'plugins/anomalia/.claude-plugin/plugin.json'))).toBe(true);
-    expect(existsSync(join(ROOT, 'plugins/anomalia/.codex-plugin/plugin.json'))).toBe(true);
-    expect(existsSync(join(ROOT, 'plugins/anomalia/.mcp.json'))).toBe(true);
+    expect(existsSync(join(ROOT, 'plugins/crumbless/.claude-plugin/plugin.json'))).toBe(true);
+    expect(existsSync(join(ROOT, 'plugins/crumbless/.codex-plugin/plugin.json'))).toBe(true);
+    expect(existsSync(join(ROOT, 'plugins/crumbless/.mcp.json'))).toBe(true);
     expect(existsSync(join(MONO_ROOT, '.claude-plugin/marketplace.json'))).toBe(true);
     expect(existsSync(join(MONO_ROOT, '.agents/plugins/marketplace.json'))).toBe(true);
   });

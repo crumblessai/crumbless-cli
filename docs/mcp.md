@@ -6,7 +6,7 @@ OAuth login as the CLI**. There are **no static API tokens**.
 
 ```
 Your agent
-   │  stdio (local)     →  bun run mcp  /  anomalia-mcp
+   │  stdio (local)     →  bun run mcp  /  crumbless-mcp
    │  HTTPS (remote)    →  https://mcp.crumbless.ai/mcp  + Bearer
    ▼
 Crumbless API  (/api/v1/*)
@@ -20,7 +20,7 @@ Crumbless API  (/api/v1/*)
 2. Authenticate once:
 
 ```bash
-anomalia login
+crumbless login
 # or, after MCP is connected, call the `login` tool
 ```
 
@@ -29,9 +29,9 @@ anomalia login
 ```json
 {
   "mcpServers": {
-    "anomalia": {
+    "crumbless": {
       "command": "bun",
-      "args": ["run", "/ABS/PATH/to/anomalia-cli/mcp/stdio.ts"]
+      "args": ["run", "/ABS/PATH/to/crumbless-cli/mcp/stdio.ts"]
     }
   }
 }
@@ -39,7 +39,7 @@ anomalia login
 
 4. Restart Cursor / reload MCP. Call `list_brands`, then work with a brand `slug`.
 
-Session file (shared with the CLI): `~/.config/anomalia/session.json`.
+Session file (shared with the CLI): `~/.config/crumbless/session.json`.
 
 ### Option B — Remote HTTP (`mcp.crumbless.ai`)
 
@@ -49,14 +49,14 @@ Session file (shared with the CLI): `~/.config/anomalia/session.json`.
 curl -sS https://mcp.crumbless.ai/health
 ```
 
-Expect: `{"ok":true,"name":"anomalia-mcp","mcp":"/mcp",...}`.
+Expect: `{"ok":true,"name":"crumbless-mcp","mcp":"/mcp",...}`.
 
 2. Cursor MCP config:
 
 ```json
 {
   "mcpServers": {
-    "anomalia": {
+    "crumbless": {
       "url": "https://mcp.crumbless.ai/mcp"
     }
   }
@@ -64,7 +64,7 @@ Expect: `{"ok":true,"name":"anomalia-mcp","mcp":"/mcp",...}`.
 ```
 
 3. The host must send **`Authorization: Bearer <access_token>`** on every request.  
-   Use the Supabase access token from Crumbless OAuth (same value the CLI stores after `anomalia login`).  
+   Use the Supabase access token from Crumbless OAuth (same value the CLI stores after `crumbless login`).  
    Without Bearer you get **401** — that is correct, not a crash.
 
 If your client cannot attach Bearer yet, use [mcp-remote](https://www.npmjs.com/package/mcp-remote) or prefer **Option A**.
@@ -99,24 +99,24 @@ Post and article ids accept **short unambiguous prefixes** from list results (sa
 | Studio | `get_studio`, `add_note`, `research_competitors` |
 | Web | `get_seo`, `get_geo`, `generate_article`, `chat` |
 
-Full map: [`skills/anomalia/references/tools.md`](../skills/anomalia/references/tools.md).
+Full map: [`skills/crumbless/references/tools.md`](../skills/crumbless/references/tools.md).
 
 ## Agent skill (directories / `npx skills`)
 
 Publishable Agent Skill (agentskills.io):
 
 ```bash
-npx skills add anomaliaso/anomalia --skill anomalia
+npx skills add crumblessso/crumbless --skill crumbless
 ```
 
-Sources: [`skills/anomalia/`](../skills/anomalia/) (`SKILL.md` + `references/`).  
-Claude/Codex marketplace plugin (skill + remote MCP): [`plugins/anomalia/`](../plugins/anomalia/) — see [`plugins.md`](plugins.md).
+Sources: [`skills/crumbless/`](../skills/crumbless/) (`SKILL.md` + `references/`).  
+Claude/Codex marketplace plugin (skill + remote MCP): [`plugins/crumbless/`](../plugins/crumbless/) — see [`plugins.md`](plugins.md).
 
 ## Auth rules (summary)
 
 | Context | How you authenticate |
 |---------|----------------------|
-| Local stdio / local HTTP | Browser `login` tool or `anomalia login` → session file |
+| Local stdio / local HTTP | Browser `login` tool or `crumbless login` → session file |
 | Remote HTTP | `Authorization: Bearer <jwt>` required |
 | Static API key | **Not supported** |
 
@@ -146,21 +146,21 @@ Not an https or loopback URI: cursor://anysphere.cursor-mcp/oauth/callback
 ```json
 {
   "mcpServers": {
-    "anomalia": {
+    "crumbless": {
       "command": "bun",
-      "args": ["run", "/ABS/PATH/to/anomalia-cli/mcp/stdio.ts"]
+      "args": ["run", "/ABS/PATH/to/crumbless-cli/mcp/stdio.ts"]
     }
   }
 }
 ```
 
-Then call the `login` tool (or run `anomalia login` first).
+Then call the `login` tool (or run `crumbless login` first).
 
 2. **Update Cursor** so MCP OAuth uses the loopback callback
    `http://localhost:8787/callback` (RFC 8252). That URI **is** accepted by Crumbless DCR.
 
-3. **Bearer header** — after `anomalia login`, put the access token from
-   `~/.config/anomalia/session.json` in the MCP config `headers.Authorization` (if your Cursor
+3. **Bearer header** — after `crumbless login`, put the access token from
+   `~/.config/crumbless/session.json` in the MCP config `headers.Authorization` (if your Cursor
    build supports headers on URL servers), or bridge with
    [mcp-remote](https://www.npmjs.com/package/mcp-remote).
 

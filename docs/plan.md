@@ -19,7 +19,7 @@ Strategia (piano editoriale)
 ## Visualizzare il piano
 
 ```bash
-anomalia plan my-brand
+crumbless plan my-brand
 ```
 
 Mostra:
@@ -38,7 +38,7 @@ Mostra:
 Per brand senza piano attivo:
 
 ```bash
-anomalia plan my-brand propose
+crumbless plan my-brand propose
 ```
 
 L'AI analizza il brand kit, i prodotti, lo storico post e i competitor per generare un piano a 4 settimane.
@@ -46,7 +46,7 @@ L'AI analizza il brand kit, i prodotti, lo storico post e i competitor per gener
 ### 2. Visualizzare e valutare
 
 ```bash
-anomalia plan my-brand
+crumbless plan my-brand
 ```
 
 Se c'è un piano proposto, mostra:
@@ -58,10 +58,10 @@ Se c'è un piano proposto, mostra:
 
 ```bash
 # Approva — il piano diventa attivo
-anomalia plan my-brand approve
+crumbless plan my-brand approve
 
 # Scarta — il piano viene rifiutato
-anomalia plan my-brand discard
+crumbless plan my-brand discard
 ```
 
 ### 4. Richiedere una revisione
@@ -69,7 +69,7 @@ anomalia plan my-brand discard
 Se vuoi modificare il piano senza riscriverlo da zero:
 
 ```bash
-anomalia plan my-brand revise --feedback "Voglio più behind-the-scenes e meno promozionale"
+crumbless plan my-brand revise --feedback "Voglio più behind-the-scenes e meno promozionale"
 ```
 
 L'AI produce un nuovo piano proposto con le modifiche. Poi approvi o scarti.
@@ -77,9 +77,9 @@ L'AI produce un nuovo piano proposto con le modifiche. Poi approvi o scarti.
 Puoi anche usare l'AI chat per feedback più naturali:
 
 ```bash
-anomalia ai my-brand --message "Voglio più focus su Instagram e meno su TikTok"
-anomalia ai my-brand --message "Aumenta la frequenza a 5 post a settimana"
-anomalia ai my-brand --message "Aggiungi LinkedIn al platform mix"
+crumbless ai my-brand --message "Voglio più focus su Instagram e meno su TikTok"
+crumbless ai my-brand --message "Aumenta la frequenza a 5 post a settimana"
+crumbless ai my-brand --message "Aggiungi LinkedIn al platform mix"
 ```
 
 ### 5. Salvare un brief per una settimana
@@ -87,10 +87,10 @@ anomalia ai my-brand --message "Aggiungi LinkedIn al platform mix"
 Ogni settimana può avere un brief utente che guida la generazione dei contenuti:
 
 ```bash
-anomalia plan my-brand save-brief --week 0 --brief "Mostra il processo creativo del brand"
-anomalia plan my-brand save-brief --week 1 --brief "Focus sui prodotti nuovi"
-anomalia plan my-brand save-brief --week 2 --brief "Behind the scenes e persone del team"
-anomalia plan my-brand save-brief --week 3 --brief "User generated content e testimonianze"
+crumbless plan my-brand save-brief --week 0 --brief "Mostra il processo creativo del brand"
+crumbless plan my-brand save-brief --week 1 --brief "Focus sui prodotti nuovi"
+crumbless plan my-brand save-brief --week 2 --brief "Behind the scenes e persone del team"
+crumbless plan my-brand save-brief --week 3 --brief "User generated content e testimonianze"
 ```
 
 Il brief viene salvato senza rigenerare nulla.
@@ -100,7 +100,7 @@ Il brief viene salvato senza rigenerare nulla.
 Se vuoi rigenerare una settimana specifica con un nuovo brief:
 
 ```bash
-anomalia plan my-brand replan --week 0 --brief "Dietro le quinte del brand"
+crumbless plan my-brand replan --week 0 --brief "Dietro le quinte del brand"
 ```
 
 L'AI ricostruisce solo quella settimana, mantenendo le altre 3 invariate.
@@ -109,16 +109,16 @@ L'AI ricostruisce solo quella settimana, mantenendo le altre 3 invariate.
 
 ```bash
 # Cambia tema settimana
-anomalia ai my-brand --message "Cambia il tema della settimana 2 a 'dietro le quinte'"
+crumbless ai my-brand --message "Cambia il tema della settimana 2 a 'dietro le quinte'"
 
 # Cambia voice
-anomalia ai my-brand --message "Cambia il tone a friendly e casuale"
+crumbless ai my-brand --message "Cambia il tone a friendly e casuale"
 
 # Cambia cadenza
-anomalia ai my-brand --message "Aumenta la frequenza a 5 post a settimana"
+crumbless ai my-brand --message "Aumenta la frequenza a 5 post a settimana"
 
 # Cambia platform mix
-anomalia ai my-brand --message "Dai più peso a Instagram (60%) e meno a TikTok (40%)"
+crumbless ai my-brand --message "Dai più peso a Instagram (60%) e meno a TikTok (40%)"
 ```
 
 ## Piano Settimanale (Seeds)
@@ -128,8 +128,8 @@ Una volta che il piano editoriale è attivo, ogni settimana ha dei "seeds" — r
 ### Visualizzare i seeds
 
 ```bash
-anomalia weekly-plan my-brand
-anomalia weekly-plan my-brand --week 2
+crumbless weekly-plan my-brand
+crumbless weekly-plan my-brand --week 2
 ```
 
 Mostra:
@@ -142,7 +142,7 @@ Mostra:
 ### Generare seeds per una settimana
 
 ```bash
-anomalia weekly-plan my-brand plan --week 0
+crumbless weekly-plan my-brand plan --week 0
 ```
 
 L'AI genera le righe (seeds) per la settimana, basandosi su:
@@ -155,10 +155,10 @@ L'AI genera le righe (seeds) per la settimana, basandosi su:
 
 ```bash
 # Produci tutti i seeds
-anomalia weekly-plan my-brand produce --week 0
+crumbless weekly-plan my-brand produce --week 0
 
 # Produci singolo seed via AI
-anomalia ai my-brand --message "Produci solo il primo seed della settimana"
+crumbless ai my-brand --message "Produci solo il primo seed della settimana"
 ```
 
 Ogni seed diventa un post reale con caption, immagine e scheduling.
@@ -167,16 +167,16 @@ Ogni seed diventa un post reale con caption, immagine e scheduling.
 
 ```bash
 # Cambia platform di un seed
-anomalia ai my-brand --message "Cambia il primo seed da Instagram a TikTok"
+crumbless ai my-brand --message "Cambia il primo seed da Instagram a TikTok"
 
 # Cambia format
-anomalia ai my-brand --message "Cambia il formato del secondo seed da post a carousel"
+crumbless ai my-brand --message "Cambia il formato del secondo seed da post a carousel"
 
 # Aggiungi un seed
-anomalia ai my-brand --message "Aggiungi un reel per venerdì alle 18"
+crumbless ai my-brand --message "Aggiungi un reel per venerdì alle 18"
 
 # Rimuovi un seed
-anomalia ai my-brand --message "Rimuovi il seed del weekend"
+crumbless ai my-brand --message "Rimuovi il seed del weekend"
 ```
 
 ## Struttura del piano
@@ -217,28 +217,28 @@ Ogni settimana:
 Ogni piano sostituito viene conservato. Puoi vedere lo storico con:
 
 ```bash
-anomalia ai my-brand --message "Mostrami lo storico dei piani editoriali"
+crumbless ai my-brand --message "Mostrami lo storico dei piani editoriali"
 ```
 
 ## Combinazione con altri comandi
 
 ```bash
 # 1. Configura il brand
-anomalia studio my-brand kit-update --about "..." --audience "..."
-anomalia studio my-brand add-note --text "Il nostro pubblico preferisce video brevi"
+crumbless studio my-brand kit-update --about "..." --audience "..."
+crumbless studio my-brand add-note --text "Il nostro pubblico preferisce video brevi"
 
 # 2. Definisci la strategia
-anomalia plan my-brand propose
-anomalia plan my-brand approve
+crumbless plan my-brand propose
+crumbless plan my-brand approve
 
 # 3. Genera i contenuti
-anomalia weekly-plan my-brand plan --week 0
-anomalia weekly-plan my-brand produce --week 0
+crumbless weekly-plan my-brand plan --week 0
+crumbless weekly-plan my-brand produce --week 0
 
 # 4. Rivedi e approva
-anomalia content my-brand --status pending_user
-anomalia approve my-brand --all
+crumbless content my-brand --status pending_user
+crumbless approve my-brand --all
 
 # 5. Analizza i risultati
-anomalia analytics my-brand
+crumbless analytics my-brand
 ```

@@ -36,7 +36,7 @@ export function toAuthInfo(auth: RequestAuth): AuthInfo {
   return {
     token: auth.access_token,
     clientId: auth.user.id,
-    scopes: ['anomalia'],
+    scopes: ['crumbless'],
     expiresAt: auth.expires_at,
     extra: { email: auth.user.email, source: auth.source },
   };

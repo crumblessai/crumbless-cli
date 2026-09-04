@@ -51,7 +51,7 @@ export async function requireAuth(): Promise<
     return {
       ok: false,
       result: fail(
-        'Not authenticated. For local stdio/HTTP: call the `login` tool (browser OAuth) or run `anomalia login`. ' +
+        'Not authenticated. For local stdio/HTTP: call the `login` tool (browser OAuth) or run `crumbless login`. ' +
           'For remote HTTP (mcp.crumbless.ai): send Authorization: Bearer <access_token> from your Crumbless OAuth session. ' +
           'No static API tokens are supported.',
       ),

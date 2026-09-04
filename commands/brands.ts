@@ -4,7 +4,7 @@ import { table, statusBadge, autopilotBadge, formatDate, c } from '../lib/displa
 
 export async function cmdBrands() {
   const session = await loadSession();
-  if (!session) { console.error('Sessione scaduta o non trovata. Esegui: anomalia login'); process.exit(1); }
+  if (!session) { console.error('Sessione scaduta o non trovata. Esegui: crumbless login'); process.exit(1); }
 
   const brands = await api.listBrands(session.access_token);
 

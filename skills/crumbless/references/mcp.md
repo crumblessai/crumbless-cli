@@ -5,7 +5,7 @@ Model Context Protocol server for Crumbless. Same HTTPS client and OAuth as the 
 
 ```
 Host (Cursor / Claude / …)
-  ├─ stdio  → bun run mcp / anomalia-mcp
+  ├─ stdio  → bun run mcp / crumbless-mcp
   └─ HTTPS  → https://mcp.crumbless.ai/mcp  (+ Bearer on remote)
          └─ Crumbless API /api/v1/*
 ```
@@ -14,7 +14,7 @@ Host (Cursor / Claude / …)
 
 | Mode | When | Endpoint / command | Auth |
 |------|------|--------------------|------|
-| **stdio** | Local agent on your machine | `bun run mcp` or `anomalia-mcp` | `login` tool or existing `anomalia login` session |
+| **stdio** | Local agent on your machine | `bun run mcp` or `crumbless-mcp` | `login` tool or existing `crumbless login` session |
 | **HTTP local** | Local Streamable HTTP | `bun run mcp:http` → `http://localhost:8787/mcp` | Bearer **or** session file |
 | **HTTP remote** | Shared / cloud host | `https://mcp.crumbless.ai/mcp` | **Bearer required** |
 
@@ -22,7 +22,7 @@ Health check (HTTP):
 
 ```bash
 curl -sS https://mcp.crumbless.ai/health
-# {"ok":true,"name":"anomalia-mcp","transport":"streamable-http","mcp":"/mcp"}
+# {"ok":true,"name":"crumbless-mcp","transport":"streamable-http","mcp":"/mcp"}
 ```
 
 OAuth resource metadata: `GET /.well-known/oauth-protected-resource`.
@@ -36,9 +36,9 @@ Clone or install the repo, then in Cursor MCP settings:
 ```json
 {
   "mcpServers": {
-    "anomalia": {
+    "crumbless": {
       "command": "bun",
-      "args": ["run", "/ABS/PATH/to/anomalia-cli/mcp/stdio.ts"]
+      "args": ["run", "/ABS/PATH/to/crumbless-cli/mcp/stdio.ts"]
     }
   }
 }
@@ -49,7 +49,7 @@ If the binary is on `PATH` after install:
 ```json
 {
   "mcpServers": {
-    "anomalia": { "command": "anomalia-mcp" }
+    "crumbless": { "command": "crumbless-mcp" }
   }
 }
 ```
@@ -59,7 +59,7 @@ If the binary is on `PATH` after install:
 ```json
 {
   "mcpServers": {
-    "anomalia": {
+    "crumbless": {
       "url": "https://mcp.crumbless.ai/mcp"
     }
   }
@@ -72,7 +72,7 @@ The host must send OAuth Bearer. If it cannot yet, use [mcp-remote](https://www.
 
 ```bash
 git clone https://github.com/anomaliaso/anomalia.git
-cd anomalia-cli
+cd crumbless-cli
 bun install
 bun run mcp          # stdio
 bun run mcp:http     # http://localhost:8787/mcp
@@ -82,8 +82,8 @@ bun run mcp:http     # http://localhost:8787/mcp
 
 **Local (stdio / local HTTP)**
 
-1. Call MCP tool `login` (opens browser), **or** run `anomalia login` in a terminal.
-2. Session is stored at `~/.config/anomalia/session.json` and shared with the CLI.
+1. Call MCP tool `login` (opens browser), **or** run `crumbless login` in a terminal.
+2. Session is stored at `~/.config/crumbless/session.json` and shared with the CLI.
 3. `whoami` / `list_brands` to confirm.
 
 **Remote HTTP**

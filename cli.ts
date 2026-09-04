@@ -10,18 +10,18 @@ const program = new Command();
 program.hook('preAction', () => assertEnv());
 
 program
-  .name('anomalia')
+  .name('crumbless')
   .description('CLI per gestire Crumbless — social media AI autopilot')
   .version('0.1.0')
   .addHelpText('after', `
 Esempi:
-  $ anomalia brands                   Lista tutti i brand
-  $ anomalia dashboard my-brand       Dashboard completa
-  $ anomalia approve my-brand --all   Approva tutti i post pending
-  $ anomalia seo my-brand             Grade SEO, iniziative, audit tecnico
-  $ anomalia geo my-brand             Visibilità AI, share of voice, citazioni
-  $ anomalia keywords my-brand        Keyword strategy e opportunità
-  $ anomalia web my-brand             Articoli blog (draft + pubblicati)
+  $ crumbless brands                   Lista tutti i brand
+  $ crumbless dashboard my-brand       Dashboard completa
+  $ crumbless approve my-brand --all   Approva tutti i post pending
+  $ crumbless seo my-brand             Grade SEO, iniziative, audit tecnico
+  $ crumbless geo my-brand             Visibilità AI, share of voice, citazioni
+  $ crumbless keywords my-brand        Keyword strategy e opportunità
+  $ crumbless web my-brand             Articoli blog (draft + pubblicati)
 
 Documentazione completa: cli/README.md
 `);

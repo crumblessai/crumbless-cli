@@ -43,7 +43,7 @@ describe('mcp HTTP transport', () => {
     );
     expect(initRes.status).toBe(200);
     const initBody = await initRes.json();
-    expect(initBody.result?.serverInfo?.name).toBe('anomalia');
+    expect(initBody.result?.serverInfo?.name).toBe('crumbless');
 
     const listRes = await handleMcpFetch(
       new Request('http://localhost/mcp', {

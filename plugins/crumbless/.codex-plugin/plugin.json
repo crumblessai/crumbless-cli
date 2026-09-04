@@ -1,5 +1,5 @@
 {
-  "name": "anomalia",
+  "name": "crumbless",
   "version": "1.0.0",
   "description": "Operate Crumbless (social media AI autopilot) via MCP or CLI: brands, posts, plans, studio, SEO/GEO, and blog.",
   "author": {
@@ -16,7 +16,7 @@
     "mcp",
     "seo",
     "geo",
-    "anomalia",
+    "crumbless",
     "autopilot"
   ],
   "skills": "./skills/",
@@ -24,7 +24,7 @@
   "interface": {
     "displayName": "Crumbless",
     "shortDescription": "Social media AI autopilot — MCP + skill",
-    "longDescription": "Drive Crumbless from Codex or ChatGPT: approve and edit social posts, run editorial plans, SEO/GEO audits, and blog workflows. Prefer the bundled MCP tools when connected; otherwise use the anomalia CLI after OAuth login.",
+    "longDescription": "Drive Crumbless from Codex or ChatGPT: approve and edit social posts, run editorial plans, SEO/GEO audits, and blog workflows. Prefer the bundled MCP tools when connected; otherwise use the crumbless CLI after OAuth login.",
     "developerName": "Andrea Buttarelli",
     "category": "Productivity",
     "capabilities": ["Read", "Write"],

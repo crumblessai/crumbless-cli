@@ -28,7 +28,7 @@ export async function cmdAds(
 ) {
   const session = await loadSession();
   if (!session) {
-    console.error('Sessione scaduta o non trovata. Esegui: anomalia login');
+    console.error('Sessione scaduta o non trovata. Esegui: crumbless login');
     process.exit(1);
   }
   const token = session.access_token;
@@ -113,7 +113,7 @@ export async function cmdAds(
       const r = await api.adsAction(token, slug, { action: 'duplicate', campaignId: opts.duplicate });
       spinner.stop();
       ok(
-        `Copy ${r.id} (${r.copiedCampaignId}) created paused — approve with: anomalia ads ${slug} --approve ${r.id}`
+        `Copy ${r.id} (${r.copiedCampaignId}) created paused — approve with: crumbless ads ${slug} --approve ${r.id}`
       );
     } catch (e) {
       spinner.fail(String(e));
@@ -154,7 +154,7 @@ export async function cmdAds(
         budgetAmount: opts.budget ? Number(opts.budget) : 25
       });
       spinner.stop();
-      ok(`Proposal ${r.id} — approve with: anomalia ads ${slug} --approve ${r.id}`);
+      ok(`Proposal ${r.id} — approve with: crumbless ads ${slug} --approve ${r.id}`);
     } catch (e) {
       spinner.fail(String(e));
       process.exit(1);
@@ -195,7 +195,7 @@ export async function cmdAds(
         ])
       );
     } else {
-      warn('Nessuna campagna. Prova: anomalia ads <slug> --propose');
+      warn('Nessuna campagna. Prova: crumbless ads <slug> --propose');
     }
 
     if (data.candidates?.length) {

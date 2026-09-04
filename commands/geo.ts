@@ -19,7 +19,7 @@ export async function cmdGeo(slug: string, opts: { action: string }) {
   const data = await api.getGeo(t, slug);
 
   section('GEO — visibilità AI');
-  if (!data.audit) { info(`Nessun audit. Lancia: anomalia geo ${slug} run\n`); return; }
+  if (!data.audit) { info(`Nessun audit. Lancia: crumbless geo ${slug} run\n`); return; }
 
   console.log(`  Share of voice: ${c.bold(`${Math.round((data.audit.share_of_voice ?? 0) * 100)}%`)}`);
   console.log(`  Tech score:     ${c.bold(String(data.audit.tech_score ?? '—'))}/100`);
@@ -49,7 +49,7 @@ export async function cmdGeo(slug: string, opts: { action: string }) {
       console.log(`  ${c.dim('·')} ${a.title} ${c.dim(`[${a.kind}${a.target_path ? ` → ${a.target_path}` : ''}]`)}`);
     }
   } else {
-    info(`\nNessun fix generato. Lancia: anomalia geo ${slug} fix`);
+    info(`\nNessun fix generato. Lancia: crumbless geo ${slug} fix`);
   }
   console.log();
 }

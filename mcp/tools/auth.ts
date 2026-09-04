@@ -15,7 +15,7 @@ export function registerAuthTools(server: McpServer) {
     {
       title: 'Login',
       description:
-        'Sign in to Crumbless via browser OAuth. Opens the login page, waits for consent, and stores a refreshable session in ~/.config/anomalia/session.json (same file as the CLI). No static API tokens.',
+        'Sign in to Crumbless via browser OAuth. Opens the login page, waits for consent, and stores a refreshable session in ~/.config/crumbless/session.json (same file as the CLI). No static API tokens.',
       inputSchema: z.object({}),
       annotations: { readOnlyHint: false, destructiveHint: false, openWorldHint: true },
     },
@@ -44,13 +44,13 @@ export function registerAuthTools(server: McpServer) {
 
         if (process.env.VERCEL === '1' || process.env.MCP_REQUIRE_BEARER === '1') {
           return fail(
-            'Browser login is not available on the remote MCP. Pass Authorization: Bearer <access_token> from your Crumbless OAuth session (same JWT stored by `anomalia login`).',
+            'Browser login is not available on the remote MCP. Pass Authorization: Bearer <access_token> from your Crumbless OAuth session (same JWT stored by `crumbless login`).',
           );
         }
 
         const session = await startBrowserLogin((msg: string) => {
           // stdout is the MCP JSON-RPC channel — log only to stderr
-          console.error(`[anomalia-mcp] ${msg}`);
+          console.error(`[crumbless-mcp] ${msg}`);
         });
 
         return ok({

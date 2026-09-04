@@ -5,7 +5,7 @@
  * The CLI auto-detects if a local dev server is running on localhost:5174.
  * If yes, uses it. Otherwise, uses the production URL.
  *
- * Override with: PUBLIC_APP_URL=http://my-server:3000 anomalia brands
+ * Override with: PUBLIC_APP_URL=http://my-server:3000 crumbless brands
  */
 
 const LOCAL_URL = 'http://localhost:5173';

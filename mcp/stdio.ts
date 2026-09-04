@@ -2,15 +2,15 @@
 /**
  * Crumbless MCP server (stdio).
  *
- * Auth is browser OAuth only — same flow as `anomalia login`, same session file.
+ * Auth is browser OAuth only — same flow as `crumbless login`, same session file.
  * No static API tokens.
  *
  * Cursor / Claude Desktop example:
  * {
  *   "mcpServers": {
- *     "anomalia": {
+ *     "crumbless": {
  *       "command": "bun",
- *       "args": ["run", "/absolute/path/to/anomalia-cli/mcp/stdio.ts"]
+ *       "args": ["run", "/absolute/path/to/crumbless-cli/mcp/stdio.ts"]
  *     }
  *   }
  * }
@@ -26,4 +26,4 @@ const server = createCrumblessMcpServer();
 const transport = new StdioServerTransport();
 await server.connect(transport);
 
-console.error('Crumbless MCP server running on stdio (OAuth session via login tool / anomalia login)');
+console.error('Crumbless MCP server running on stdio (OAuth session via login tool / crumbless login)');

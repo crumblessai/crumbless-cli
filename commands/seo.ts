@@ -41,7 +41,7 @@ export async function cmdSeo(slug: string, opts: Opts) {
   const audit = data.audit;
   const tech = (audit?.tech ?? {}) as { issues?: { severity?: string; title?: string }[] };
   const search = (audit?.search ?? {}) as { clicks?: number; impressions?: number; position?: number };
-  if (!audit) info('Nessun audit. Lancia: anomalia seo ' + slug + ' run');
+  if (!audit) info('Nessun audit. Lancia: crumbless seo ' + slug + ' run');
   else {
     console.log(`  Tech score: ${c.bold(String(audit.tech_score ?? '—'))}/100`);
     if (search.clicks != null) console.log(`  Search: ${search.clicks} click · ${search.impressions} impression · pos. media ${search.position?.toFixed?.(1) ?? '—'}`);
@@ -53,7 +53,7 @@ export async function cmdSeo(slug: string, opts: Opts) {
   }
 
   const plan = data.plan;
-  if (!plan?.initiatives?.length) { info('\nNessun piano SEO. Lancia: anomalia seo ' + slug + ' plan\n'); return; }
+  if (!plan?.initiatives?.length) { info('\nNessun piano SEO. Lancia: crumbless seo ' + slug + ' plan\n'); return; }
 
   section(`Piano — grade ${plan.evaluation?.grade ?? plan.grade ?? '—'}`);
   if (plan.evaluation?.summary) console.log(`  ${plan.evaluation.summary}\n`);
@@ -66,6 +66,6 @@ export async function cmdSeo(slug: string, opts: Opts) {
       data.assets[i.id] ? c.green('✓') : c.dim('—')
     ])
   );
-  info(`\nGenera un asset:    anomalia seo ${slug} asset --id <id>`);
-  info(`Genera un articolo: anomalia seo ${slug} article --id <id>\n`);
+  info(`\nGenera un asset:    crumbless seo ${slug} asset --id <id>`);
+  info(`Genera un articolo: crumbless seo ${slug} article --id <id>\n`);
 }

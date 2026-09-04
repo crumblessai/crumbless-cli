@@ -60,7 +60,7 @@ console.log(`Building Crumbless CLI for: ${selectedTargets.map(t => t.name).join
 
 // Build each target
 for (const target of selectedTargets) {
-  const outName = `anomalia-${target.name}`;
+  const outName = `crumbless-${target.name}`;
   const outPath = join(DIST, outName);
 
   console.log(`  Building ${outName}...`);
@@ -103,7 +103,7 @@ try {
 
 // Homebrew formulas prefer archives over raw binaries.
 for (const target of selectedTargets) {
-  const outName = `anomalia-${target.name}`;
+  const outName = `crumbless-${target.name}`;
   const outPath = join(DIST, outName);
   if (!existsSync(outPath)) continue;
   const tarPath = `${outPath}.tar.gz`;
@@ -121,6 +121,6 @@ for (const target of selectedTargets) {
 
 console.log('\nDone! Binaries are in dist/');
 console.log('\nTo install locally:');
-console.log('  sudo cp dist/anomalia-macos-arm64 /usr/local/bin/anomalia');
+console.log('  sudo cp dist/crumbless-macos-arm64 /usr/local/bin/crumbless');
 console.log('\nTo distribute:');
 console.log('  Upload dist/ files to your hosting or create a GitHub release');

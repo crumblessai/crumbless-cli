@@ -52,7 +52,7 @@ export async function handleMcpFetch(req: Request): Promise<Response> {
   if (url.pathname === '/health' || url.pathname === '/') {
     return json({
       ok: true,
-      name: 'anomalia-mcp',
+      name: 'crumbless-mcp',
       transport: 'streamable-http',
       mcp: '/mcp',
     });
@@ -62,7 +62,7 @@ export async function handleMcpFetch(req: Request): Promise<Response> {
     return json({
       resource: mcpResourceUrl(req),
       authorization_servers: authServers(),
-      scopes_supported: ['anomalia'],
+      scopes_supported: ['crumbless'],
       bearer_methods_supported: ['header'],
     });
   }
@@ -100,7 +100,7 @@ export async function handleMcpFetch(req: Request): Promise<Response> {
           status: 401,
           headers: {
             'Content-Type': 'application/json',
-            'WWW-Authenticate': `Bearer realm="anomalia", resource_metadata="${new URL('/.well-known/oauth-protected-resource', req.url).toString()}"`,
+            'WWW-Authenticate': `Bearer realm="crumbless", resource_metadata="${new URL('/.well-known/oauth-protected-resource', req.url).toString()}"`,
           },
         },
       ),

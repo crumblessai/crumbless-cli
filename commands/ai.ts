@@ -4,7 +4,7 @@ import { c } from '../lib/display.ts';
 
 export async function cmdAi(slug: string, opts: { message?: string; pipe?: boolean }) {
   const session = await loadSession();
-  if (!session) { console.error('Sessione scaduta o non trovata. Esegui: anomalia login'); process.exit(1); }
+  if (!session) { console.error('Sessione scaduta o non trovata. Esegui: crumbless login'); process.exit(1); }
 
   let message = opts.message;
 
@@ -28,9 +28,9 @@ export async function cmdAi(slug: string, opts: { message?: string; pipe?: boole
     console.error('Specifica un messaggio con --message "..." o pipe da stdin');
     console.error('');
     console.error('Esempi:');
-    console.error(`  anomalia ai ${slug} --message "Analizza i miei ultimi post"`);
-    console.error(`  echo "Cambia il tone a friendly" | anomalia ai ${slug}`);
-    console.error(`  anomalia ai ${slug} --message "Aggiungi competitor Notion"`);
+    console.error(`  crumbless ai ${slug} --message "Analizza i miei ultimi post"`);
+    console.error(`  echo "Cambia il tone a friendly" | crumbless ai ${slug}`);
+    console.error(`  crumbless ai ${slug} --message "Aggiungi competitor Notion"`);
     process.exit(1);
   }
 

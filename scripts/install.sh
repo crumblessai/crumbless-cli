@@ -1,10 +1,10 @@
 #!/bin/bash
 #
-# Anomalia CLI Installer
+# Crumbless CLI Installer
 #
 # Usage:
-#   curl -sSL https://raw.githubusercontent.com/anomaliaso/anomalia/main/cli/scripts/install.sh | bash              # Install
-#   curl -sSL https://raw.githubusercontent.com/anomaliaso/anomalia/main/cli/scripts/install.sh | bash -s -- --update  # Update
+#   curl -sSL https://raw.githubusercontent.com/crumblessso/crumbless/main/cli/scripts/install.sh | bash              # Install
+#   curl -sSL https://raw.githubusercontent.com/crumblessso/crumbless/main/cli/scripts/install.sh | bash -s -- --update  # Update
 #
 # Options:
 #   --version <ver>   Install a specific version (default: latest)
@@ -17,8 +17,8 @@ set -euo pipefail
 
 # ── Configuration ──────────────────────────────────────────────────────
 
-REPO="anomaliaso/anomalia"  # GitHub org/repo
-BINARY_NAME="anomalia"
+REPO="crumblessso/crumbless"  # GitHub org/repo
+BINARY_NAME="crumbless"
 DEFAULT_DIR="/usr/local/bin"
 FALLBACK_DIR="$HOME/.local/bin"
 VERSION="latest"
@@ -73,7 +73,7 @@ while [[ $# -gt 0 ]]; do
     --no-sudo)  NO_SUDO=true; shift ;;
     --update)   UPDATE=true; shift ;;
     -h|--help)
-      echo "Usage: curl -sSL https://raw.githubusercontent.com/anomaliaso/anomalia/main/cli/scripts/install.sh | bash"
+      echo "Usage: curl -sSL https://raw.githubusercontent.com/crumblessso/crumbless/main/cli/scripts/install.sh | bash"
       echo ""
       echo "Options:"
       echo "  --version <ver>   Install a specific version"
@@ -89,7 +89,7 @@ done
 # ── Main ───────────────────────────────────────────────────────────────
 
 echo ""
-echo -e "${BOLD}Anomalia CLI Installer${NC}"
+echo -e "${BOLD}Crumbless CLI Installer${NC}"
 echo ""
 
 # Detect platform
@@ -98,14 +98,14 @@ info "Platform: ${PLATFORM}"
 
 # Update mode — find existing installation
 if [[ "$UPDATE" == true ]]; then
-  EXISTING="$(which anomalia 2>/dev/null || true)"
+  EXISTING="$(which crumbless 2>/dev/null || true)"
   if [[ -n "$EXISTING" ]]; then
     INSTALL_DIR="$(dirname "$EXISTING")"
     CURRENT_VERSION="$($EXISTING --version 2>/dev/null || echo 'unknown')"
     info "Found existing installation: $EXISTING (v${CURRENT_VERSION})"
     info "Updating in $INSTALL_DIR..."
   else
-    warn "anomalia not found in PATH. Installing fresh."
+    warn "crumbless not found in PATH. Installing fresh."
     UPDATE=false
   fi
 fi
@@ -139,12 +139,12 @@ fi
 
 # Determine download URL
 if [[ "$VERSION" == "latest" ]]; then
-  DOWNLOAD_URL="https://github.com/${REPO}/releases/latest/download/anomalia-${PLATFORM}"
+  DOWNLOAD_URL="https://github.com/${REPO}/releases/latest/download/crumbless-${PLATFORM}"
 else
-  DOWNLOAD_URL="https://github.com/${REPO}/releases/download/v${VERSION}/anomalia-${PLATFORM}"
+  DOWNLOAD_URL="https://github.com/${REPO}/releases/download/v${VERSION}/crumbless-${PLATFORM}"
 fi
 
-info "Downloading Anomalia CLI..."
+info "Downloading Crumbless CLI..."
 info "URL: ${DOWNLOAD_URL}"
 
 # Download
@@ -173,7 +173,7 @@ chmod +x "$TEMP_FILE"
 info "Installing to ${INSTALL_DIR}/${BINARY_NAME}..."
 $SUDO mv "$TEMP_FILE" "${INSTALL_DIR}/${BINARY_NAME}" || fatal "Installation failed"
 
-success "Anomalia CLI installed to ${INSTALL_DIR}/${BINARY_NAME}"
+success "Crumbless CLI installed to ${INSTALL_DIR}/${BINARY_NAME}"
 
 # Install AI skill (ask user)
 echo ""
@@ -185,20 +185,20 @@ if [[ "$install_skill" != "n" && "$install_skill" != "N" ]]; then
   read -p "  Scelta [1/2]: " skill_choice
   echo ""
 
-  SKILL_URL="https://raw.githubusercontent.com/anomaliaso/anomalia/main/cli/skills/anomalia-cli.md"
+  SKILL_URL="https://raw.githubusercontent.com/crumblessso/crumbless/main/cli/skills/crumbless-cli.md"
 
   if [[ "$skill_choice" == "2" ]]; then
     # Global install
     CLAUDE_SKILLS_DIR="$HOME/.claude/skills"
     mkdir -p "$CLAUDE_SKILLS_DIR"
-    curl -sSL "$SKILL_URL" -o "$CLAUDE_SKILLS_DIR/anomalia-cli.md" 2>/dev/null && \
-      success "Skill installata globalmente → $CLAUDE_SKILLS_DIR/anomalia-cli.md" || \
+    curl -sSL "$SKILL_URL" -o "$CLAUDE_SKILLS_DIR/crumbless-cli.md" 2>/dev/null && \
+      success "Skill installata globalmente → $CLAUDE_SKILLS_DIR/crumbless-cli.md" || \
       warn "Could not install skill (non-critical)"
   else
     # Project install
     mkdir -p ".claude/skills"
-    curl -sSL "$SKILL_URL" -o ".claude/skills/anomalia-cli.md" 2>/dev/null && \
-      success "Skill installata nel progetto → .claude/skills/anomalia-cli.md" || \
+    curl -sSL "$SKILL_URL" -o ".claude/skills/crumbless-cli.md" 2>/dev/null && \
+      success "Skill installata nel progetto → .claude/skills/crumbless-cli.md" || \
       warn "Could not install skill (non-critical)"
 
     # Also install for Cursor if .cursor exists
@@ -208,7 +208,7 @@ if [[ "$install_skill" != "n" && "$install_skill" != "N" ]]; then
     fi
 
     # Also install llms.txt
-    curl -sSL "https://raw.githubusercontent.com/anomaliaso/anomalia/main/cli/llms.txt" -o "llms.txt" 2>/dev/null && \
+    curl -sSL "https://raw.githubusercontent.com/crumblessso/crumbless/main/cli/llms.txt" -o "llms.txt" 2>/dev/null && \
       success "llms.txt installato" || true
   fi
 fi
@@ -233,20 +233,20 @@ fi
 
 # Verify installation
 echo ""
-if command -v anomalia &> /dev/null; then
-  NEW_VERSION="$(anomalia --version 2>/dev/null || echo 'unknown')"
+if command -v crumbless &> /dev/null; then
+  NEW_VERSION="$(crumbless --version 2>/dev/null || echo 'unknown')"
   if [[ "$UPDATE" == true ]]; then
-    success "Anomalia CLI updated! (v${CURRENT_VERSION} → v${NEW_VERSION})"
+    success "Crumbless CLI updated! (v${CURRENT_VERSION} → v${NEW_VERSION})"
   else
-    success "Anomalia CLI installed! (v${NEW_VERSION})"
+    success "Crumbless CLI installed! (v${NEW_VERSION})"
   fi
   echo ""
-  echo "  Run 'anomalia --help' to get started"
-  echo "  Run 'anomalia update' to update to the latest version"
+  echo "  Run 'crumbless --help' to get started"
+  echo "  Run 'crumbless update' to update to the latest version"
 else
   info "Installation complete! You may need to restart your terminal."
   echo ""
-  echo "  Run '${INSTALL_DIR}/anomalia --help' to get started"
+  echo "  Run '${INSTALL_DIR}/crumbless --help' to get started"
 fi
 
 echo ""

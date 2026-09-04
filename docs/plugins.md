@@ -1,8 +1,8 @@
 # Crumbless plugin — Claude Code & Codex submit
 
-The installable plugin lives in [`plugins/anomalia/`](../plugins/anomalia/). It bundles:
+The installable plugin lives in [`plugins/crumbless/`](../plugins/crumbless/). It bundles:
 
-- Agent skill → `skills/anomalia/` (`SKILL.md` + `references/`)
+- Agent skill → `skills/crumbless/` (`SKILL.md` + `references/`)
 - Remote MCP → `.mcp.json` → `https://mcp.crumbless.ai/mcp`
 - Manifests → `.claude-plugin/plugin.json` and `.codex-plugin/plugin.json`
 
@@ -10,24 +10,24 @@ Repo marketplaces (self-host / team install):
 
 | Agent | Marketplace file | Add / install |
 |-------|------------------|---------------|
-| Claude Code | [`.claude-plugin/marketplace.json`](../.claude-plugin/marketplace.json) | `/plugin marketplace add anomaliaso/anomalia` then `/plugin install anomalia@anomalia` |
-| Codex / ChatGPT | [`.agents/plugins/marketplace.json`](../.agents/plugins/marketplace.json) | `codex plugin marketplace add anomaliaso/anomalia` |
+| Claude Code | [`.claude-plugin/marketplace.json`](../.claude-plugin/marketplace.json) | `/plugin marketplace add crumblessso/crumbless` then `/plugin install crumbless@crumbless` |
+| Codex / ChatGPT | [`.agents/plugins/marketplace.json`](../.agents/plugins/marketplace.json) | `codex plugin marketplace add crumblessso/crumbless` |
 
 Local test (Claude):
 
 ```bash
-claude --plugin-dir ./plugins/anomalia
-claude plugin validate ./plugins/anomalia
+claude --plugin-dir ./plugins/crumbless
+claude plugin validate ./plugins/crumbless
 claude plugin validate .   # marketplace + plugin
 ```
 
-Canonical Agent Skill for `npx skills`: `skills/anomalia/`.  
+Canonical Agent Skill for `npx skills`: `skills/crumbless/`.  
 After editing it, sync into the plugin with `bash scripts/sync-plugin-skill.sh`.
 
 ## Submit to Claude community directory
 
 1. Push this repo publicly (already on GitHub).
-2. Run `claude plugin validate ./plugins/anomalia` and fix issues.
+2. Run `claude plugin validate ./plugins/crumbless` and fix issues.
 3. Submit the **GitHub repo URL** at one of:
    - [platform.claude.com/plugins/submit](https://platform.claude.com/plugins/submit) (Console — individuals)
    - [claude.ai admin submissions](https://claude.ai/admin-settings/directory/submissions/plugins/new) (Team / Enterprise)
@@ -43,7 +43,7 @@ Docs: [Submitting your plugin](https://claude.com/docs/plugins/submit) · [Plugi
 3. Create plugin → prefer **With MCP** (skills + MCP):
    - MCP URL: `https://mcp.crumbless.ai/mcp` (Universal)
    - Scan Tools, domain verification, tool annotations
-   - Skills: upload the `plugins/anomalia/skills/` tree **or** import static skills from MCP if exposed
+   - Skills: upload the `plugins/crumbless/skills/` tree **or** import static skills from MCP if exposed
 4. Fill listing (logo, privacy `https://www.crumbless.ai/privacy`, terms `https://www.crumbless.ai/terms`, support/website).
 5. Add starter prompts + **5 positive / 3 negative** test cases; demo credentials without MFA if reviewers need login.
 6. Submit for review → after approval, **publish** from the portal (not automatic).
@@ -52,4 +52,4 @@ Docs: [Submit plugins](https://developers.openai.com/plugins/deploy/submission) 
 
 ## Auth note
 
-Remote MCP requires an Crumbless OAuth Bearer JWT (same session as `anomalia login`). Hosts that cannot attach Bearer should use local stdio MCP (`anomalia-mcp` / `bun run mcp`) after CLI login — see [`docs/mcp.md`](mcp.md).
+Remote MCP requires an Crumbless OAuth Bearer JWT (same session as `crumbless login`). Hosts that cannot attach Bearer should use local stdio MCP (`crumbless-mcp` / `bun run mcp`) after CLI login — see [`docs/mcp.md`](mcp.md).
