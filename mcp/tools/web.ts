@@ -229,7 +229,7 @@ export function registerWebTools(server: McpServer) {
   server.registerTool(
     'chat',
     {
-      title: 'Anomalia AI chat',
+      title: 'Crumbless AI chat',
       description:
         'Natural-language assistant with full read/write access to the brand (same as the web chatbot / `anomalia ai`). Prefer specific tools for deterministic ops; use chat for multi-step or exploratory work.',
       inputSchema: z.object({

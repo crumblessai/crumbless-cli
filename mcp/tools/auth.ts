@@ -15,7 +15,7 @@ export function registerAuthTools(server: McpServer) {
     {
       title: 'Login',
       description:
-        'Sign in to Anomalia via browser OAuth. Opens the login page, waits for consent, and stores a refreshable session in ~/.config/anomalia/session.json (same file as the CLI). No static API tokens.',
+        'Sign in to Crumbless via browser OAuth. Opens the login page, waits for consent, and stores a refreshable session in ~/.config/anomalia/session.json (same file as the CLI). No static API tokens.',
       inputSchema: z.object({}),
       annotations: { readOnlyHint: false, destructiveHint: false, openWorldHint: true },
     },
@@ -44,7 +44,7 @@ export function registerAuthTools(server: McpServer) {
 
         if (process.env.VERCEL === '1' || process.env.MCP_REQUIRE_BEARER === '1') {
           return fail(
-            'Browser login is not available on the remote MCP. Pass Authorization: Bearer <access_token> from your Anomalia OAuth session (same JWT stored by `anomalia login`).',
+            'Browser login is not available on the remote MCP. Pass Authorization: Bearer <access_token> from your Crumbless OAuth session (same JWT stored by `anomalia login`).',
           );
         }
 
@@ -69,7 +69,7 @@ export function registerAuthTools(server: McpServer) {
     'logout',
     {
       title: 'Logout',
-      description: 'Clear the local Anomalia OAuth session (CLI + MCP share the same session file).',
+      description: 'Clear the local Crumbless OAuth session (CLI + MCP share the same session file).',
       inputSchema: z.object({}),
       annotations: { readOnlyHint: false, destructiveHint: true },
     },
@@ -83,7 +83,7 @@ export function registerAuthTools(server: McpServer) {
     'whoami',
     {
       title: 'Who am I',
-      description: 'Show the currently authenticated Anomalia user, if any.',
+      description: 'Show the currently authenticated Crumbless user, if any.',
       inputSchema: z.object({}),
       annotations: { readOnlyHint: true },
     },
@@ -118,7 +118,7 @@ export function registerAuthTools(server: McpServer) {
     'list_brands',
     {
       title: 'List brands',
-      description: 'List all Anomalia brands for the signed-in user (slug, plan, pending posts, autopilot).',
+      description: 'List all Crumbless brands for the signed-in user (slug, plan, pending posts, autopilot).',
       inputSchema: z.object({}),
       annotations: { readOnlyHint: true },
     },

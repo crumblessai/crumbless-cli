@@ -1,6 +1,6 @@
-# Anomalia CLI
+# Crumbless CLI
 
-CLI for managing Anomalia social media AI autopilot brands from the terminal.
+CLI for managing Crumbless social media AI autopilot brands from the terminal.
 
 ## Installation
 
@@ -134,7 +134,7 @@ bun run mcp          # stdio
 bun run mcp:http     # http://localhost:8787/mcp
 ```
 
-Remote (Vercel / `mcp.anomalia.so`): `Authorization: Bearer <access_token>`. Full map: `docs/mcp.md`.
+Remote (Vercel / `mcp.crumbless.ai`): `Authorization: Bearer <access_token>`. Full map: `docs/mcp.md`.
 
 ## Observability (Sentry + Supabase)
 

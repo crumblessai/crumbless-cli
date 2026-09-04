@@ -1,6 +1,6 @@
-# Anomalia CLI — Social Media AI Automation CLI, MCP Server & Agent Skill
+# Crumbless CLI — Social Media AI Automation CLI, MCP Server & Agent Skill
 
-**Automate your social media from the terminal.** [Anomalia](https://anomalia.so) is the social
+**Automate your social media from the terminal.** [Crumbless](https://crumbless.ai) is the social
 media AI autopilot that plans, writes, designs and publishes posts, blog articles and SEO/GEO
 audits on autopilot. This repository is its command-line client, [MCP server](docs/mcp.md)
 (Model Context Protocol — `stdio` + HTTP) and agent skill: everything you need to run social
@@ -14,10 +14,10 @@ This repository ships **three ways** to drive the same product (same OAuth, same
 | **MCP** | Model Context Protocol server (`stdio` + HTTP) | Cursor, Claude, other MCP hosts |
 | **Skill** | Agent Skill (`skills/anomalia/`) | Coding agents / skills.sh / `npx skills` |
 
-> **You need an Anomalia account.** This is a client, not a standalone tool: every call talks to
-> the Anomalia API over HTTPS. Without an account there is nothing to drive.
+> **You need an Crumbless account.** This is a client, not a standalone tool: every call talks to
+> the Crumbless API over HTTPS. Without an account there is nothing to drive.
 
-With the Anomalia CLI you can automate social media posting, approve AI-generated content in one
+With the Crumbless CLI you can automate social media posting, approve AI-generated content in one
 tap, edit a carousel slide by slide, turn a post into a video, run SEO and GEO audits, and manage
 your blog — from the terminal **or** from an AI agent like Cursor or Claude.
 
@@ -30,7 +30,7 @@ your blog — from the terminal **or** from an AI agent like Cursor or Claude.
        │    lib/api.ts + OAuth session       │
        └─────────────────┼───────────────────┘
                          ▼
-                 Anomalia /api/v1/*
+                 Crumbless /api/v1/*
 ```
 
 ---
@@ -123,7 +123,7 @@ bun run mcp          # stdio (local hosts)
 bun run mcp:http     # http://localhost:8787/mcp
 ```
 
-Remote: `https://mcp.anomalia.so/mcp` (Bearer JWT required). Health: `GET /health`.
+Remote: `https://mcp.crumbless.ai/mcp` (Bearer JWT required). Health: `GET /health`.
 
 **Cursor — stdio**
 
@@ -143,7 +143,7 @@ Remote: `https://mcp.anomalia.so/mcp` (Bearer JWT required). Health: `GET /healt
 ```json
 {
   "mcpServers": {
-    "anomalia": { "url": "https://mcp.anomalia.so/mcp" }
+    "anomalia": { "url": "https://mcp.crumbless.ai/mcp" }
   }
 }
 ```
@@ -191,12 +191,12 @@ Submit checklist (Claude community directory + OpenAI Plugins Directory): **[`do
 
 ## Configuration
 
-Zero config by default → `https://anomalia.so`, with automatic fallback to
+Zero config by default → `https://crumbless.ai`, with automatic fallback to
 `http://localhost:5173` when a local app is answering.
 
 | Variable | Purpose |
 |----------|---------|
-| `PUBLIC_APP_URL` | Point CLI/MCP at another Anomalia instance |
+| `PUBLIC_APP_URL` | Point CLI/MCP at another Crumbless instance |
 | `SENTRY_DSN` | (MCP HTTP / Vercel) Errors → Sentry |
 | `SUPABASE_SERVICE_ROLE_KEY` | (MCP HTTP / Vercel) Rows in `mcp_logs` |
 | `MCP_PUBLIC_URL` | Public MCP base URL for OAuth metadata |
@@ -208,11 +208,11 @@ in this repo or the binary.
 
 ## Architecture
 
-Thin HTTPS client — no DB access, no coupling to the Anomalia server codebase:
+Thin HTTPS client — no DB access, no coupling to the Crumbless server codebase:
 
 ```
 CLI  ──┐
-MCP  ──┼── HTTPS ──►  /api/v1/*  ──►  Anomalia
+MCP  ──┼── HTTPS ──►  /api/v1/*  ──►  Crumbless
 Skill ─┘   (guides agents to CLI or MCP)
 ```
 

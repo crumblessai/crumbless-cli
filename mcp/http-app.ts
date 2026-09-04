@@ -92,7 +92,7 @@ export async function handleMcpFetch(req: Request): Promise<Response> {
           error: {
             code: -32001,
             message:
-              'Unauthorized. Pass Authorization: Bearer <access_token> from an Anomalia OAuth session.',
+              'Unauthorized. Pass Authorization: Bearer <access_token> from an Crumbless OAuth session.',
           },
           id: null,
         }),
@@ -111,9 +111,9 @@ export async function handleMcpFetch(req: Request): Promise<Response> {
     const { WebStandardStreamableHTTPServerTransport } = await import(
       '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js'
     );
-    const { createAnomaliaMcpServer } = await import('./server.ts');
+    const { createCrumblessMcpServer } = await import('./server.ts');
 
-    const server = createAnomaliaMcpServer();
+    const server = createCrumblessMcpServer();
     const transport = new WebStandardStreamableHTTPServerTransport({
       sessionIdGenerator: undefined,
       enableJsonResponse: true,

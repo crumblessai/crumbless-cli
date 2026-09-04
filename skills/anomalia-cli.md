@@ -1,4 +1,4 @@
-# Anomalia Skill (MCP + CLI)
+# Crumbless Skill (MCP + CLI)
 
 Flat copy for Claude Code / multi-tool installers.  
 **Canonical publishable skill:** [`anomalia/SKILL.md`](./anomalia/SKILL.md) (Agent Skills / skills.sh).
@@ -14,7 +14,7 @@ Details: [anomalia/references/mcp.md](./anomalia/references/mcp.md) · [tools.md
 ## Auth
 
 - Local: MCP `login` or `anomalia login` → `~/.config/anomalia/session.json`
-- Remote MCP (`https://mcp.anomalia.so/mcp`): `Authorization: Bearer <access_token>`
+- Remote MCP (`https://mcp.crumbless.ai/mcp`): `Authorization: Bearer <access_token>`
 - Start with `list_brands` / `anomalia brands`
 
 ## Cursor MCP (stdio)
@@ -35,7 +35,7 @@ Details: [anomalia/references/mcp.md](./anomalia/references/mcp.md) · [tools.md
 ```json
 {
   "mcpServers": {
-    "anomalia": { "url": "https://mcp.anomalia.so/mcp" }
+    "anomalia": { "url": "https://mcp.crumbless.ai/mcp" }
   }
 }
 ```

@@ -1,9 +1,9 @@
-# Anomalia plugin — Claude Code & Codex submit
+# Crumbless plugin — Claude Code & Codex submit
 
 The installable plugin lives in [`plugins/anomalia/`](../plugins/anomalia/). It bundles:
 
 - Agent skill → `skills/anomalia/` (`SKILL.md` + `references/`)
-- Remote MCP → `.mcp.json` → `https://mcp.anomalia.so/mcp`
+- Remote MCP → `.mcp.json` → `https://mcp.crumbless.ai/mcp`
 - Manifests → `.claude-plugin/plugin.json` and `.codex-plugin/plugin.json`
 
 Repo marketplaces (self-host / team install):
@@ -41,10 +41,10 @@ Docs: [Submitting your plugin](https://claude.com/docs/plugins/submit) · [Plugi
 1. OpenAI Platform org with **Apps Management → Write** and a **verified** developer/business identity.
 2. Open the [plugin submission portal](https://developers.openai.com/plugins/deploy/submission).
 3. Create plugin → prefer **With MCP** (skills + MCP):
-   - MCP URL: `https://mcp.anomalia.so/mcp` (Universal)
+   - MCP URL: `https://mcp.crumbless.ai/mcp` (Universal)
    - Scan Tools, domain verification, tool annotations
    - Skills: upload the `plugins/anomalia/skills/` tree **or** import static skills from MCP if exposed
-4. Fill listing (logo, privacy `https://www.anomalia.so/privacy`, terms `https://www.anomalia.so/terms`, support/website).
+4. Fill listing (logo, privacy `https://www.crumbless.ai/privacy`, terms `https://www.crumbless.ai/terms`, support/website).
 5. Add starter prompts + **5 positive / 3 negative** test cases; demo credentials without MFA if reviewers need login.
 6. Submit for review → after approval, **publish** from the portal (not automatic).
 
@@ -52,4 +52,4 @@ Docs: [Submit plugins](https://developers.openai.com/plugins/deploy/submission) 
 
 ## Auth note
 
-Remote MCP requires an Anomalia OAuth Bearer JWT (same session as `anomalia login`). Hosts that cannot attach Bearer should use local stdio MCP (`anomalia-mcp` / `bun run mcp`) after CLI login — see [`docs/mcp.md`](mcp.md).
+Remote MCP requires an Crumbless OAuth Bearer JWT (same session as `anomalia login`). Hosts that cannot attach Bearer should use local stdio MCP (`anomalia-mcp` / `bun run mcp`) after CLI login — see [`docs/mcp.md`](mcp.md).

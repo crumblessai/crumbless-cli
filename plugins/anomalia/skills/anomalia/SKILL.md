@@ -1,32 +1,32 @@
 ---
 name: anomalia
 description: >-
-  Operate Anomalia (social media AI autopilot) via MCP tools or the anomalia CLI:
+  Operate Crumbless (social media AI autopilot) via MCP tools or the anomalia CLI:
   brands, posts, plans, studio, SEO/GEO, blog, and AI chat. Use when the user
-  mentions Anomalia, anomalia.so, approving social posts, editorial plans,
+  mentions Crumbless, crumbless.ai, approving social posts, editorial plans,
   SEO/GEO audits, or managing brand content from an agent.
 license: AGPL-3.0-or-later
 compatibility: >-
-  Requires network access to anomalia.so (or PUBLIC_APP_URL). Prefer Anomalia MCP
+  Requires network access to crumbless.ai (or PUBLIC_APP_URL). Prefer Crumbless MCP
   when connected; otherwise the anomalia CLI (Bun or installed binary) after OAuth login.
 metadata:
   author: andreabuttarelli
   version: "1.0.0"
-  homepage: https://anomalia.so
+  homepage: https://crumbless.ai
   repository: https://github.com/anomaliaso/anomalia
-  mcp: https://mcp.anomalia.so/mcp
+  mcp: https://mcp.crumbless.ai/mcp
 ---
 
-# Anomalia
+# Crumbless
 
-Drive [Anomalia](https://anomalia.so) — social media AI autopilot — through **MCP tools**
+Drive [Crumbless](https://crumbless.ai) — social media AI autopilot — through **MCP tools**
 (preferred) or the **`anomalia` CLI**. Same OAuth identity. **No static API tokens.**
 
 ## Choose interface
 
 | Situation | Action |
 |-----------|--------|
-| Anomalia MCP is connected | Call MCP tools (`list_brands`, `list_posts`, …) |
+| Crumbless MCP is connected | Call MCP tools (`list_brands`, `list_posts`, …) |
 | MCP not available | Shell: `anomalia …` after `anomalia login` |
 | Vague / multi-step ask | MCP `chat` or `anomalia ai <slug> --message "…" --pipe` |
 
@@ -35,7 +35,7 @@ Never invent REST endpoints or API keys.
 ## Auth (always OAuth)
 
 1. **Local MCP / CLI:** shared session at `~/.config/anomalia/session.json`. MCP tool `login` opens the browser, or run `anomalia login`.
-2. **Remote MCP** (`https://mcp.anomalia.so/mcp`): send `Authorization: Bearer <access_token>` (same JWT the CLI stores). Missing Bearer → 401.
+2. **Remote MCP** (`https://mcp.crumbless.ai/mcp`): send `Authorization: Bearer <access_token>` (same JWT the CLI stores). Missing Bearer → 401.
 3. Verify with `whoami` / `list_brands` or `anomalia brands`.
 
 Setup details: [references/mcp.md](references/mcp.md).

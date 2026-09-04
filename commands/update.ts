@@ -25,7 +25,7 @@ function detectInstallChannel(path: string): 'source' | 'homebrew' | 'npm' | 'bi
 }
 
 export async function cmdUpdate() {
-  console.log(c.bold('\nAggiornamento Anomalia CLI…\n'));
+  console.log(c.bold('\nAggiornamento Crumbless CLI…\n'));
 
   const platform = process.platform;
   const arch = process.arch;
@@ -88,7 +88,7 @@ export async function cmdUpdate() {
     chmodSync(tempPath, 0o755);
     renameSync(tempPath, binPath);
 
-    console.log(`\n  ${c.green('✓')} Anomalia CLI aggiornato!`);
+    console.log(`\n  ${c.green('✓')} Crumbless CLI aggiornato!`);
     console.log(`  Riavvia la CLI per usare la nuova versione.\n`);
   } catch (e) {
     console.error(`  ✗ Errore: ${String(e)}`);

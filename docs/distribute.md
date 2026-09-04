@@ -1,4 +1,4 @@
-# Distribute the Anomalia CLI (npm + Homebrew)
+# Distribute the Crumbless CLI (npm + Homebrew)
 
 ## Install channels
 

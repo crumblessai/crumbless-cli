@@ -11,9 +11,9 @@ describe('appUrl', () => {
   // The apex 308s to www, and fetch drops Authorization across origins — every API call made
   // against the apex comes back 401 "Missing or invalid Authorization header".
   test('production base is the canonical www host, never the redirecting apex', () => {
-    expect(PRODUCTION_URL).toBe('https://www.anomalia.so');
+    expect(PRODUCTION_URL).toBe('https://www.crumbless.ai');
     delete process.env.PUBLIC_APP_URL;
-    expect(appUrl()).toBe('https://www.anomalia.so');
+    expect(appUrl()).toBe('https://www.crumbless.ai');
   });
 
   test('an explicit PUBLIC_APP_URL wins, trailing slash stripped', () => {
@@ -28,7 +28,7 @@ describe('authServerUrl', () => {
   // quindi l'unico identificatore che regge è quello che risponde 200 — www.
   test('never advertises the apex: it 308-redirects and discovery dies there', () => {
     delete process.env.PUBLIC_APP_URL;
-    expect(authServerUrl()).toBe('https://www.anomalia.so');
+    expect(authServerUrl()).toBe('https://www.crumbless.ai');
     expect(authServerUrl()).toBe(appUrl());
   });
 

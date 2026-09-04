@@ -1,4 +1,4 @@
-# Anomalia CLI (fallback)
+# Crumbless CLI (fallback)
 
 Use when MCP is not connected. Same OAuth session as MCP (`~/.config/anomalia/session.json`).
 

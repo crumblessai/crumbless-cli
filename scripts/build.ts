@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 /**
- * Build script for Anomalia CLI.
+ * Build script for Crumbless CLI.
  * Compiles the CLI into standalone binaries using `bun build --compile`.
  *
  * Usage:
@@ -56,7 +56,7 @@ if (!buildAll) {
   }
 }
 
-console.log(`Building Anomalia CLI for: ${selectedTargets.map(t => t.name).join(', ')}\n`);
+console.log(`Building Crumbless CLI for: ${selectedTargets.map(t => t.name).join(', ')}\n`);
 
 // Build each target
 for (const target of selectedTargets) {

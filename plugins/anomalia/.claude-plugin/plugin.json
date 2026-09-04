@@ -1,15 +1,15 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "anomalia",
-  "displayName": "Anomalia",
+  "displayName": "Crumbless",
   "version": "1.0.0",
-  "description": "Operate Anomalia (social media AI autopilot) via MCP or CLI: brands, posts, plans, studio, SEO/GEO, and blog.",
+  "description": "Operate Crumbless (social media AI autopilot) via MCP or CLI: brands, posts, plans, studio, SEO/GEO, and blog.",
   "author": {
     "name": "Andrea Buttarelli",
     "email": "andreabuttarelli.design@gmail.com",
     "url": "https://github.com/andreabuttarelli"
   },
-  "homepage": "https://anomalia.so",
+  "homepage": "https://crumbless.ai",
   "repository": "https://github.com/anomaliaso/anomalia",
   "license": "AGPL-3.0-or-later",
   "keywords": [

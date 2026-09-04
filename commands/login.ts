@@ -16,7 +16,7 @@ function fail(message: string): never {
 }
 
 export async function cmdLogin(options: LoginOptions = {}) {
-  console.log(c.bold('\nLogin a Anomalia\n'));
+  console.log(c.bold('\nLogin a Crumbless\n'));
 
   // Check if already logged in
   const existing = await loadSession();

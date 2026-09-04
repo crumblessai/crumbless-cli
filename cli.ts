@@ -11,7 +11,7 @@ program.hook('preAction', () => assertEnv());
 
 program
   .name('anomalia')
-  .description('CLI per gestire Anomalia — social media AI autopilot')
+  .description('CLI per gestire Crumbless — social media AI autopilot')
   .version('0.1.0')
   .addHelpText('after', `
 Esempi:
@@ -28,7 +28,7 @@ Documentazione completa: cli/README.md
 
 program
   .command('login')
-  .description('Accedi a Anomalia (default: apre il browser)')
+  .description('Accedi a Crumbless (default: apre il browser)')
   .option('--email <email>', 'email per login non interattivo (richiede --password o --password-stdin)')
   .option('--password <password>', 'password per login non interattivo (richiede --email)')
   .option('--password-stdin', 'legge la password da stdin, fuori da history e process list')
@@ -39,7 +39,7 @@ program
 
 program
   .command('logout')
-  .description('Disconnettiti da Anomalia')
+  .description('Disconnettiti da Crumbless')
   .action(async () => {
     const { cmdLogout } = await import('./commands/logout.ts');
     await cmdLogout();
@@ -307,7 +307,7 @@ program
 
 program
   .command('update')
-  .description('Aggiorna Anomalia CLI all\'ultima versione')
+  .description('Aggiorna Crumbless CLI all\'ultima versione')
   .action(async () => {
     const { cmdUpdate } = await import('./commands/update.ts');
     await cmdUpdate();
@@ -315,7 +315,7 @@ program
 
 program
   .command('ai <slug>')
-  .description('Chatta con l\'AI di Anomalia — tutto ciò che fa il chatbot web, da CLI')
+  .description('Chatta con l\'AI di Crumbless — tutto ciò che fa il chatbot web, da CLI')
   .option('--message <text>', 'Messaggio da inviare all\'AI')
   .option('--pipe', 'Output raw (per agenti AI)')
   .action(async (slug: string, opts: { message?: string; pipe?: boolean }) => {

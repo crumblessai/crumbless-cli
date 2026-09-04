@@ -1,6 +1,6 @@
 /**
- * Thin HTTP client for the Anomalia CLI.
- * No Supabase, no DB access, no secrets — just HTTP calls to the Anomalia API.
+ * Thin HTTP client for the Crumbless CLI.
+ * No Supabase, no DB access, no secrets — just HTTP calls to the Crumbless API.
  */
 
 import { appUrl } from './config.ts';

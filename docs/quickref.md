@@ -1,4 +1,4 @@
-# Quick Reference — Anomalia CLI
+# Quick Reference — Crumbless CLI
 
 ## Comandi rapidi
 

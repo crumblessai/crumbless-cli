@@ -1,7 +1,7 @@
 {
   "name": "anomalia-cli",
   "version": "0.1.0",
-  "description": "Command-line client for Anomalia — the social media AI autopilot.",
+  "description": "Command-line client for Crumbless — the social media AI autopilot.",
   "license": "AGPL-3.0-or-later",
   "author": "Andrea Buttarelli",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "git+https://github.com/anomaliaso/anomalia.git",
     "directory": "cli"
   },
-  "homepage": "https://anomalia.so",
+  "homepage": "https://crumbless.ai",
   "bugs": {
     "url": "https://github.com/anomaliaso/anomalia/issues"
   },

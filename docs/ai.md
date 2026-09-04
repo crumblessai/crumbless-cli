@@ -1,6 +1,6 @@
 # AI Chat — Guida
 
-Il comando `ai` ti permette di chattare con l'AI di Anomalia direttamente dalla CLI. Può fare tutto ciò che fa il chatbot nella dashboard web.
+Il comando `ai` ti permette di chattare con l'AI di Crumbless direttamente dalla CLI. Può fare tutto ciò che fa il chatbot nella dashboard web.
 
 ## Uso base
 

@@ -1,4 +1,4 @@
-# Anomalia MCP tools ↔ CLI
+# Crumbless MCP tools ↔ CLI
 
 All tools take a brand `slug` when brand-scoped. Ids accept short unambiguous prefixes.
 

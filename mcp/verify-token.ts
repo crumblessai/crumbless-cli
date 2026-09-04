@@ -11,7 +11,7 @@ function anonClient() {
 }
 
 /**
- * Validate an Anomalia / Supabase access token (same JWT the CLI stores after OAuth).
+ * Validate an Crumbless / Supabase access token (same JWT the CLI stores after OAuth).
  * Returns undefined if missing/invalid — never accepts a static API key.
  */
 export async function verifyBearerToken(bearerToken?: string): Promise<RequestAuth | undefined> {

@@ -1,13 +1,13 @@
-# Anomalia MCP — setup & usage
+# Crumbless MCP — setup & usage
 
-Model Context Protocol server for Anomalia. Same HTTPS client and OAuth as the CLI.
+Model Context Protocol server for Crumbless. Same HTTPS client and OAuth as the CLI.
 **No static API tokens.**
 
 ```
 Host (Cursor / Claude / …)
   ├─ stdio  → bun run mcp / anomalia-mcp
-  └─ HTTPS  → https://mcp.anomalia.so/mcp  (+ Bearer on remote)
-         └─ Anomalia API /api/v1/*
+  └─ HTTPS  → https://mcp.crumbless.ai/mcp  (+ Bearer on remote)
+         └─ Crumbless API /api/v1/*
 ```
 
 ## 1. Pick a transport
@@ -16,12 +16,12 @@ Host (Cursor / Claude / …)
 |------|------|--------------------|------|
 | **stdio** | Local agent on your machine | `bun run mcp` or `anomalia-mcp` | `login` tool or existing `anomalia login` session |
 | **HTTP local** | Local Streamable HTTP | `bun run mcp:http` → `http://localhost:8787/mcp` | Bearer **or** session file |
-| **HTTP remote** | Shared / cloud host | `https://mcp.anomalia.so/mcp` | **Bearer required** |
+| **HTTP remote** | Shared / cloud host | `https://mcp.crumbless.ai/mcp` | **Bearer required** |
 
 Health check (HTTP):
 
 ```bash
-curl -sS https://mcp.anomalia.so/health
+curl -sS https://mcp.crumbless.ai/health
 # {"ok":true,"name":"anomalia-mcp","transport":"streamable-http","mcp":"/mcp"}
 ```
 
@@ -60,7 +60,7 @@ If the binary is on `PATH` after install:
 {
   "mcpServers": {
     "anomalia": {
-      "url": "https://mcp.anomalia.so/mcp"
+      "url": "https://mcp.crumbless.ai/mcp"
     }
   }
 }
@@ -88,11 +88,11 @@ bun run mcp:http     # http://localhost:8787/mcp
 
 **Remote HTTP**
 
-1. Obtain a Supabase access token via Anomalia OAuth (same token inside `session.json` after CLI login: field used as Bearer).
+1. Obtain a Supabase access token via Crumbless OAuth (same token inside `session.json` after CLI login: field used as Bearer).
 2. Send on every request: `Authorization: Bearer <access_token>`.
 3. Without it you get JSON-RPC **401** — that is expected, not a server crash.
 
-There is **no** `ANOMALIA_TOKEN` / API-key path by design.
+There is **no** `CRUMBLESS_TOKEN` / API-key path by design.
 
 ## 4. First calls
 
@@ -111,10 +111,10 @@ Ids from list tools accept short unambiguous prefixes (same rule as the CLI).
 | 404 on `/health` | Wrong deploy root / path | Expect `/health` and `/mcp` on the MCP host |
 | Tools missing | MCP not connected in host | Check Cursor MCP panel; restart host |
 | Auth works in CLI but not MCP | Different machine / no session file | Run `login` in the MCP process environment |
-| `Not an https or loopback URI: cursor://anysphere.cursor-mcp/oauth/callback` | Cursor DCR uses a custom-scheme callback; Anomalia OAuth only allows https/loopback | Use **stdio** MCP, update Cursor (localhost `:8787` callback), or pass Bearer; see [docs/mcp.md](../../../docs/mcp.md#cursor--remote-http-oauth) |
+| `Not an https or loopback URI: cursor://anysphere.cursor-mcp/oauth/callback` | Cursor DCR uses a custom-scheme callback; Crumbless OAuth only allows https/loopback | Use **stdio** MCP, update Cursor (localhost `:8787` callback), or pass Bearer; see [docs/mcp.md](../../../docs/mcp.md#cursor--remote-http-oauth) |
 
 ## 6. More
 
 - Full tool list: [tools.md](tools.md)
 - CLI fallback: [cli.md](cli.md)
-- Product: https://anomalia.so · Repo: https://github.com/anomaliaso/anomalia
+- Product: https://crumbless.ai · Repo: https://github.com/anomaliaso/anomalia
