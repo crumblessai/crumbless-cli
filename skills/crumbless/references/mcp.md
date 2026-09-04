@@ -1,5 +1,11 @@
 # Crumbless MCP — setup & usage
 
+> **`mcp.crumbless.ai` is not deployed yet.** The code, the OAuth routes and the
+> Vercel build are all in this repo — the host simply has not been stood up. Until
+> it is, use **stdio** or **HTTP local**, which work today against any app instance.
+> Do not send a Bearer token to that hostname before it resolves to us.
+
+
 Model Context Protocol server for Crumbless. Same HTTPS client and OAuth as the CLI.
 **No static API tokens.**
 
