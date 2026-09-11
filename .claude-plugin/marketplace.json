@@ -1,0 +1,36 @@
+{
+  "name": "crumbless",
+  "owner": {
+    "name": "Crumblx AI Ltd",
+    "email": "office@crumbless.ai",
+    "url": "https://github.com/crumblessai"
+  },
+  "metadata": {
+    "description": "Crumbless — social media AI autopilot (CLI, MCP, agent skill)",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "crumbless",
+      "source": "./plugins/crumbless",
+      "description": "Operate Crumbless via MCP or CLI: brands, posts, plans, studio, SEO/GEO, and blog.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Crumblx AI Ltd",
+        "email": "office@crumbless.ai",
+        "url": "https://github.com/crumblessai"
+      },
+      "homepage": "https://crumbless.ai",
+      "repository": "https://github.com/crumblessai/crumbless-cli",
+      "license": "AGPL-3.0-or-later",
+      "keywords": [
+        "social-media",
+        "content",
+        "mcp",
+        "seo",
+        "geo",
+        "crumbless"
+      ]
+    }
+  ]
+}
