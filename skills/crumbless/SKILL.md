@@ -35,7 +35,10 @@ Never invent REST endpoints or API keys.
 ## Auth (always OAuth)
 
 1. **Local MCP / CLI:** shared session at `~/.config/crumbless/session.json`. MCP tool `login` opens the browser, or run `crumbless login`.
-2. **Remote MCP** (`https://mcp.crumbless.ai/mcp`): send `Authorization: Bearer <access_token>` (same JWT the CLI stores). Missing Bearer → 401.
+2. **Remote MCP** (`https://mcp.crumbless.ai/mcp`) — **not deployed yet**, the hostname does not
+   resolve. Use stdio or HTTP local until it does, and do not send a Bearer token to a host that
+   is not us. When it is up: `Authorization: Bearer <access_token>` (same JWT the CLI stores),
+   missing Bearer → 401.
 3. Verify with `whoami` / `list_brands` or `crumbless brands`.
 
 Setup details: [references/mcp.md](references/mcp.md).

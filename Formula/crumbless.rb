@@ -4,7 +4,7 @@
 # Homebrew formula for the Crumbless CLI (prebuilt binaries from GitHub Releases).
 #
 # Install (dedicated tap, kept in sync by the cli-v* release workflow):
-#   brew tap crumblessso/tap https://github.com/crumblessai/homebrew-tap
+#   brew tap crumblessai/tap https://github.com/crumblessai/homebrew-tap
 #   brew install crumbless
 #
 # SHA256 placeholders below are filled by .github/workflows/release.yml on each v* tag.

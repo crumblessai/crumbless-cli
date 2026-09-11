@@ -5,7 +5,7 @@
 | Channel | Command |
 |---------|---------|
 | **npm** | `npm install -g crumbless-cli` |
-| **Homebrew** | `brew tap crumblessso/tap https://github.com/crumblessai/homebrew-tap && brew install crumbless` (tap repo created once, see below) |
+| **Homebrew** | `brew tap crumblessai/tap https://github.com/crumblessai/homebrew-tap && brew install crumbless` (tap repo created once, see below) |
 | **curl** | `curl -sSL https://raw.githubusercontent.com/crumblessai/crumbless-cli/main/scripts/install.sh \| bash` |
 | **From source** | `bun install && bun run cli.ts` |
 
@@ -38,7 +38,7 @@ repository, so the formula is published to [`crumblessai/homebrew-tap`](https://
 (create it once by copying the formula from this repo):
 
 ```bash
-brew tap crumblessso/tap https://github.com/crumblessai/homebrew-tap
+brew tap crumblessai/tap https://github.com/crumblessai/homebrew-tap
 brew install crumbless
 crumbless --version
 ```

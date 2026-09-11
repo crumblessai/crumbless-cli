@@ -59,7 +59,7 @@ crumbless login
 **Homebrew** — formula lives in the [`crumblessai/homebrew-tap`](https://github.com/crumblessai/homebrew-tap) repository:
 
 ```bash
-brew tap crumblessso/tap https://github.com/crumblessai/homebrew-tap
+brew tap crumblessai/tap https://github.com/crumblessai/homebrew-tap
 brew install crumbless
 crumbless login
 ```
