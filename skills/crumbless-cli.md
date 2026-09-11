@@ -4,7 +4,7 @@ Flat copy for Claude Code / multi-tool installers.
 **Canonical publishable skill:** [`crumbless/SKILL.md`](./crumbless/SKILL.md) (Agent Skills / skills.sh).
 
 ```bash
-npx skills add crumblessso/crumbless --skill crumbless
+npx skills add crumblessai/crumbless-cli --skill crumbless
 bash scripts/install-skill.sh --project
 ```
 
@@ -43,7 +43,7 @@ Details: [crumbless/references/mcp.md](./crumbless/references/mcp.md) · [tools.
 ## CLI fallback
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/crumblessso/crumbless/main/cli/scripts/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/crumblessai/crumbless-cli/main/scripts/install.sh | bash
 crumbless login
 crumbless brands
 crumbless content <slug> --status pending_user

@@ -56,10 +56,10 @@ npm install -g crumbless-cli
 crumbless login
 ```
 
-**Homebrew** — formula lives in the [`crumblessso/homebrew-tap`](https://github.com/crumblessso/homebrew-tap) repository:
+**Homebrew** — formula lives in the [`crumblessai/homebrew-tap`](https://github.com/crumblessai/homebrew-tap) repository:
 
 ```bash
-brew tap crumblessso/tap https://github.com/crumblessso/homebrew-tap
+brew tap crumblessso/tap https://github.com/crumblessai/homebrew-tap
 brew install crumbless
 crumbless login
 ```
@@ -67,7 +67,7 @@ crumbless login
 **Installer (standalone binary)** — macOS arm64/x64 and Linux arm64/x64, no Node/Bun required:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/crumblessso/crumbless/main/cli/scripts/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/crumblessai/crumbless-cli/main/scripts/install.sh | bash
 crumbless login
 ```
 
@@ -106,7 +106,7 @@ Full command dump: [`llms.txt`](llms.txt) · more docs: [`docs/`](docs/)
 Requires [Bun](https://bun.sh).
 
 ```bash
-git clone https://github.com/anomaliaso/anomalia.git
+git clone https://github.com/crumblessai/crumbless-cli.git
 cd crumbless-cli
 bun install
 bun run cli.ts --help
@@ -163,7 +163,7 @@ using the custom-scheme OAuth callback — use **stdio** above, update Cursor (l
 Publishable [Agent Skill](https://agentskills.io) for Cursor, Claude, skills.sh, and friends:
 
 ```bash
-npx skills add crumblessso/crumbless --skill crumbless
+npx skills add crumblessai/crumbless-cli --skill crumbless
 # or
 bash scripts/install-skill.sh --project
 ```
@@ -178,11 +178,11 @@ Same skill + remote MCP, packaged for plugin install and directory submit:
 
 ```bash
 # Claude Code
-/plugin marketplace add crumblessso/crumbless
+/plugin marketplace add crumblessai/crumbless-cli
 /plugin install crumbless@crumbless
 
 # Codex
-codex plugin marketplace add crumblessso/crumbless
+codex plugin marketplace add crumblessai/crumbless-cli
 ```
 
 Submit checklist (Claude community directory + OpenAI Plugins Directory): **[`docs/plugins.md`](docs/plugins.md)**.
@@ -245,7 +245,8 @@ and publishes `crumbless-cli` to npm when `NPM_TOKEN` is set. Details: [`docs/di
 
 ## License
 
-Copyright © 2026 Andrea Buttarelli.
+Copyright © 2026 Andrea Buttarelli (original work, Anomalia).
+Copyright © 2026 Crumblx AI Ltd (modifications).
 
 Licensed under the [GNU Affero General Public License v3.0 or later](LICENSE). You may use, modify
 and redistribute it, but derivative works must stay open source under the same license, must keep

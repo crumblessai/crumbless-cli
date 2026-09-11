@@ -3,8 +3,8 @@
 # Crumbless CLI Installer
 #
 # Usage:
-#   curl -sSL https://raw.githubusercontent.com/crumblessso/crumbless/main/cli/scripts/install.sh | bash              # Install
-#   curl -sSL https://raw.githubusercontent.com/crumblessso/crumbless/main/cli/scripts/install.sh | bash -s -- --update  # Update
+#   curl -sSL https://raw.githubusercontent.com/crumblessai/crumbless-cli/main/scripts/install.sh | bash              # Install
+#   curl -sSL https://raw.githubusercontent.com/crumblessai/crumbless-cli/main/scripts/install.sh | bash -s -- --update  # Update
 #
 # Options:
 #   --version <ver>   Install a specific version (default: latest)
@@ -17,7 +17,7 @@ set -euo pipefail
 
 # ── Configuration ──────────────────────────────────────────────────────
 
-REPO="crumblessso/crumbless"  # GitHub org/repo
+REPO="crumblessai/crumbless-cli"  # GitHub org/repo
 BINARY_NAME="crumbless"
 DEFAULT_DIR="/usr/local/bin"
 FALLBACK_DIR="$HOME/.local/bin"
@@ -73,7 +73,7 @@ while [[ $# -gt 0 ]]; do
     --no-sudo)  NO_SUDO=true; shift ;;
     --update)   UPDATE=true; shift ;;
     -h|--help)
-      echo "Usage: curl -sSL https://raw.githubusercontent.com/crumblessso/crumbless/main/cli/scripts/install.sh | bash"
+      echo "Usage: curl -sSL https://raw.githubusercontent.com/crumblessai/crumbless-cli/main/scripts/install.sh | bash"
       echo ""
       echo "Options:"
       echo "  --version <ver>   Install a specific version"
@@ -185,7 +185,7 @@ if [[ "$install_skill" != "n" && "$install_skill" != "N" ]]; then
   read -p "  Scelta [1/2]: " skill_choice
   echo ""
 
-  SKILL_URL="https://raw.githubusercontent.com/crumblessso/crumbless/main/cli/skills/crumbless-cli.md"
+  SKILL_URL="https://raw.githubusercontent.com/crumblessai/crumbless-cli/main/skills/crumbless-cli.md"
 
   if [[ "$skill_choice" == "2" ]]; then
     # Global install
@@ -208,7 +208,7 @@ if [[ "$install_skill" != "n" && "$install_skill" != "N" ]]; then
     fi
 
     # Also install llms.txt
-    curl -sSL "https://raw.githubusercontent.com/crumblessso/crumbless/main/cli/llms.txt" -o "llms.txt" 2>/dev/null && \
+    curl -sSL "https://raw.githubusercontent.com/crumblessai/crumbless-cli/main/llms.txt" -o "llms.txt" 2>/dev/null && \
       success "llms.txt installato" || true
   fi
 fi

@@ -77,7 +77,7 @@ The host must send OAuth Bearer. If it cannot yet, use [mcp-remote](https://www.
 ### From source (dev)
 
 ```bash
-git clone https://github.com/anomaliaso/anomalia.git
+git clone https://github.com/crumblessai/crumbless-cli.git
 cd crumbless-cli
 bun install
 bun run mcp          # stdio
@@ -123,4 +123,4 @@ Ids from list tools accept short unambiguous prefixes (same rule as the CLI).
 
 - Full tool list: [tools.md](tools.md)
 - CLI fallback: [cli.md](cli.md)
-- Product: https://crumbless.ai · Repo: https://github.com/anomaliaso/anomalia
+- Product: https://crumbless.ai · Repo: https://github.com/crumblessai/crumbless-cli

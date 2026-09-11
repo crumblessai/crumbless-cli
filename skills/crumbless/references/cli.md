@@ -5,14 +5,14 @@ Use when MCP is not connected. Same OAuth session as MCP (`~/.config/crumbless/s
 ## Install
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/crumblessso/crumbless/main/cli/scripts/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/crumblessai/crumbless-cli/main/scripts/install.sh | bash
 crumbless login
 ```
 
 From source (Bun):
 
 ```bash
-git clone https://github.com/anomaliaso/anomalia.git
+git clone https://github.com/crumblessai/crumbless-cli.git
 cd crumbless-cli && bun install
 bun run cli.ts --help
 ```
@@ -38,5 +38,5 @@ crumbless web <slug> generate --topic "..."
 crumbless ai <slug> --message "..." --pipe
 ```
 
-Full dump: repo root [`llms.txt`](https://github.com/anomaliaso/anomalia/blob/main/cli/llms.txt).
+Full dump: repo root [`llms.txt`](https://github.com/crumblessai/crumbless-cli/blob/main/llms.txt).
 Tool mapping: [tools.md](tools.md).

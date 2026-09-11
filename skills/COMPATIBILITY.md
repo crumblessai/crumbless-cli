@@ -6,8 +6,8 @@ Package: [`skills/crumbless/`](./crumbless/) — follows [agentskills.io](https:
 Canonical for `npx skills` / skills.sh. The Claude/Codex plugin mirrors the same tree at [`plugins/crumbless/skills/crumbless/`](../plugins/crumbless/skills/crumbless/) — run `bash scripts/sync-plugin-skill.sh` after skill edits.
 
 ```bash
-npx skills add crumblessso/crumbless --skill crumbless
-npx skills add crumblessso/crumbless --skill crumbless -g   # global
+npx skills add crumblessai/crumbless-cli --skill crumbless
+npx skills add crumblessai/crumbless-cli --skill crumbless -g   # global
 ```
 
 Appears on directories that index public GitHub skills (e.g. skills.sh) via install telemetry — no separate submission.
@@ -26,11 +26,11 @@ Full submit checklist: [`docs/plugins.md`](../docs/plugins.md).
 
 ```bash
 # Claude Code — add this repo as a marketplace, then install
-/plugin marketplace add crumblessso/crumbless
+/plugin marketplace add crumblessai/crumbless-cli
 /plugin install crumbless@crumbless
 
 # Codex — add marketplace from the repo
-codex plugin marketplace add crumblessso/crumbless
+codex plugin marketplace add crumblessai/crumbless-cli
 ```
 
 Public directory submit forms:

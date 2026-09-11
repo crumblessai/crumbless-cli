@@ -112,7 +112,7 @@ Full map: [`skills/crumbless/references/tools.md`](../skills/crumbless/reference
 Publishable Agent Skill (agentskills.io):
 
 ```bash
-npx skills add crumblessso/crumbless --skill crumbless
+npx skills add crumblessai/crumbless-cli --skill crumbless
 ```
 
 Sources: [`skills/crumbless/`](../skills/crumbless/) (`SKILL.md` + `references/`).  

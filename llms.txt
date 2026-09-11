@@ -5,7 +5,7 @@ CLI for managing Crumbless social media AI autopilot brands from the terminal.
 ## Installation
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/crumblessso/crumbless/main/cli/scripts/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/crumblessai/crumbless-cli/main/scripts/install.sh | bash
 ```
 
 ## Commands

@@ -10,8 +10,8 @@ Repo marketplaces (self-host / team install):
 
 | Agent | Marketplace file | Add / install |
 |-------|------------------|---------------|
-| Claude Code | [`.claude-plugin/marketplace.json`](../.claude-plugin/marketplace.json) | `/plugin marketplace add crumblessso/crumbless` then `/plugin install crumbless@crumbless` |
-| Codex / ChatGPT | [`.agents/plugins/marketplace.json`](../.agents/plugins/marketplace.json) | `codex plugin marketplace add crumblessso/crumbless` |
+| Claude Code | [`.claude-plugin/marketplace.json`](../.claude-plugin/marketplace.json) | `/plugin marketplace add crumblessai/crumbless-cli` then `/plugin install crumbless@crumbless` |
+| Codex / ChatGPT | [`.agents/plugins/marketplace.json`](../.agents/plugins/marketplace.json) | `codex plugin marketplace add crumblessai/crumbless-cli` |
 
 Local test (Claude):
 

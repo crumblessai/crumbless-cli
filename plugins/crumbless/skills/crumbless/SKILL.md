@@ -10,10 +10,10 @@ compatibility: >-
   Requires network access to crumbless.ai (or PUBLIC_APP_URL). Prefer Crumbless MCP
   when connected; otherwise the crumbless CLI (Bun or installed binary) after OAuth login.
 metadata:
-  author: andreabuttarelli
+  author: crumblessai
   version: "1.0.0"
   homepage: https://crumbless.ai
-  repository: https://github.com/anomaliaso/anomalia
+  repository: https://github.com/crumblessai/crumbless-cli
   mcp: https://mcp.crumbless.ai/mcp
 ---
 
@@ -65,18 +65,18 @@ Setup details: [references/mcp.md](references/mcp.md).
 ## Install this skill
 
 ```bash
-npx skills add crumblessso/crumbless --skill crumbless
+npx skills add crumblessai/crumbless-cli --skill crumbless
 ```
 
 Or install the marketplace plugin (skill + remote MCP):
 
 ```bash
 # Claude Code
-/plugin marketplace add crumblessso/crumbless
+/plugin marketplace add crumblessai/crumbless-cli
 /plugin install crumbless@crumbless
 
 # Codex
-codex plugin marketplace add crumblessso/crumbless
+codex plugin marketplace add crumblessai/crumbless-cli
 ```
 
 Or copy this folder into `.cursor/skills/crumbless/` / `~/.claude/skills/crumbless/`.  
