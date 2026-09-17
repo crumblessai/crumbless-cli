@@ -39,39 +39,30 @@ your blog — from the terminal **or** from an AI agent like Cursor or Claude.
 
 ### Install
 
-Pick one:
+The first release channel is **standalone GitHub binaries** for macOS and Linux, arm64/x64.
+Check the [public releases](https://github.com/crumblessai/crumbless-cli/releases) first: if no
+release is listed, use [From source](#from-source). A public source repository alone does not
+provide downloadable binaries.
 
-| Method | Command | Notes |
-|--------|---------|--------|
-| **npm** | `npm install -g crumbless-cli` | Needs Node.js ≥ 20 |
-| **Homebrew** | see below | macOS / Linux, standalone binary |
-| **Installer** | see below | curl script → binary on PATH |
-| **From source** | see below | Needs [Bun](https://bun.sh) |
+| Method | Availability |
+|--------|--------------|
+| **Standalone installer** | Requires a published GitHub release; no Node/Bun runtime needed |
+| **From source** | Requires [Bun](https://bun.sh) and a source checkout |
+| **npm / Homebrew** | Deferred; not part of the initial binary release |
 
-**npm**
-
-```bash
-npm install -g crumbless-cli
-# or:  pnpm add -g crumbless-cli   /   bun add -g crumbless-cli
-crumbless login
-```
-
-**Homebrew** — formula lives in the [`crumblessai/homebrew-tap`](https://github.com/crumblessai/homebrew-tap) repository:
-
-```bash
-brew tap crumblessai/tap https://github.com/crumblessai/homebrew-tap
-brew install crumbless
-crumbless login
-```
-
-**Installer (standalone binary)** — macOS arm64/x64 and Linux arm64/x64, no Node/Bun required:
+Once the first public release is available:
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/crumblessai/crumbless-cli/main/scripts/install.sh | bash
 crumbless login
 ```
 
-Update later with `crumbless update`, or `npm install -g crumbless-cli@latest` / `brew upgrade crumbless` depending on how you installed. More detail: [`docs/distribute.md`](docs/distribute.md).
+Piped and other noninteractive installations install only the CLI, without prompting for optional
+AI skills or changing project configuration. Add the [agent skill](#3-agent-skill--plugins) separately.
+
+Update a standalone installation with `crumbless update`. The binary provides `crumbless`, not
+the separate npm `crumbless-mcp` launcher. Native Windows binaries are not included.
+Publisher details and deferred channels: [`docs/distribute.md`](docs/distribute.md).
 
 ### Quick start
 
@@ -117,13 +108,17 @@ bun run cli.ts --help
 ## 2. MCP server
 
 Same tools and OAuth as the CLI. Docs: **[`docs/mcp.md`](docs/mcp.md)**.
+Run these from a source checkout with Bun; installing the standalone CLI binary does not
+install the MCP source or the `crumbless-mcp` npm launcher.
 
 ```bash
-bun run mcp          # stdio (local hosts)
-bun run mcp:http     # http://localhost:8787/mcp
+bun run mcp          # source-run stdio
+bun run mcp:http     # local HTTP implementation
 ```
 
-Remote: `https://mcp.crumbless.ai/mcp` (Bearer JWT required). Health: `GET /health`.
+**Hosted MCP is not deployed yet.** `https://mcp.crumbless.ai/mcp` is the planned endpoint,
+not an available service. Use source-run stdio until hosting is verified; do not send credentials
+to an unverified host.
 
 **Cursor — stdio**
 
@@ -138,7 +133,7 @@ Remote: `https://mcp.crumbless.ai/mcp` (Bearer JWT required). Health: `GET /heal
 }
 ```
 
-**Cursor — HTTP**
+**Cursor — HTTP configuration reference (after deployment)**
 
 ```json
 {
@@ -174,7 +169,9 @@ When the skill is active, agents prefer **MCP tools** if connected, otherwise th
 
 ### Claude Code / Codex marketplace plugin
 
-Same skill + remote MCP, packaged for plugin install and directory submit:
+The skill and planned remote MCP configuration are packaged together. The skill can be
+installed from GitHub independently of npm publishing; the remote MCP portion remains unavailable
+until deployment:
 
 ```bash
 # Claude Code
@@ -191,15 +188,21 @@ Submit checklist (Claude community directory + OpenAI Plugins Directory): **[`do
 
 ## Configuration
 
-Zero config by default → `https://crumbless.ai`, with automatic fallback to
-`http://localhost:5173` when a local app is answering.
+Zero config by default → `https://www.crumbless.app`, with the application's public auth
+configuration at `https://auth.crumbless.app`. `crumbless.ai` is the marketing site, not the
+login/API origin. A local development app can still be detected on port 5173.
 
 | Variable | Purpose |
 |----------|---------|
 | `PUBLIC_APP_URL` | Point CLI/MCP at another Crumbless instance |
+| `PUBLIC_SUPABASE_URL` | That instance's public authentication URL |
+| `PUBLIC_SUPABASE_ANON_KEY` | That instance's public anon/publishable key, never a service-role key |
 | `SENTRY_DSN` | (MCP HTTP / Vercel) Errors → Sentry |
 | `SUPABASE_SERVICE_ROLE_KEY` | (MCP HTTP / Vercel) Rows in `mcp_logs` |
 | `MCP_PUBLIC_URL` | Public MCP base URL for OAuth metadata |
+
+For another instance, set all three `PUBLIC_*` values together so API calls and sign-in use the
+same instance.
 
 Session: `~/.config/crumbless/session.json`. `crumbless logout` clears it. No secrets are embedded
 in this repo or the binary.
@@ -234,12 +237,16 @@ bun run typecheck
 bun test
 bun run build             # binary → dist/
 bun run build:all         # all four targets
+bun run scripts/build.ts --all --verify  # verify and list existing release outputs
 bun run vercel-build      # MCP bundles under mcp/api/
 ```
 
-Releases: push a `v*` tag → CI typechecks, tests, cross-compiles binaries + `.tar.gz` +
-`SHA256SUMS.txt` on the GitHub Release, bumps [`Formula/crumbless.rb`](Formula/crumbless.rb),
-and publishes `crumbless-cli` to npm when `NPM_TOKEN` is set. Details: [`docs/distribute.md`](docs/distribute.md).
+Release automation lives in the **app source repository**, at `.github/workflows/cli-release.yml`.
+An approved `cli-vX` tag push there publishes version `X` under public tag `vX` in this CLI
+repository, after credential and artifact checks. PR and manual runs produce validation artifacts
+only, even when a manual run selects a tag. npm is default-off behind `CLI_PUBLISH_NPM`; the
+workflow never pushes formula changes to app `main` or a Homebrew tap. Before tagging, reconcile
+and verify the public source mirror. Details: [`docs/distribute.md`](docs/distribute.md).
 
 ---
 

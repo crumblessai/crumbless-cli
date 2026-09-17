@@ -1,67 +1,125 @@
-# Distribute the Crumbless CLI (npm + Homebrew)
+# Distribute the Crumbless CLI
 
-## Install channels
+## GitHub binaries first
 
-| Channel | Command |
-|---------|---------|
-| **npm** | `npm install -g crumbless-cli` |
-| **Homebrew** | `brew tap crumblessai/tap https://github.com/crumblessai/homebrew-tap && brew install crumbless` (tap repo created once, see below) |
-| **curl** | `curl -sSL https://raw.githubusercontent.com/crumblessai/crumbless-cli/main/scripts/install.sh \| bash` |
-| **From source** | `bun install && bun run cli.ts` |
+The initial channel is the [public GitHub releases](https://github.com/crumblessai/crumbless-cli/releases):
+macOS and Linux, arm64/x64, with a raw executable, a `.tar.gz` archive, and checksums.
+The standalone executable is `crumbless`; it does not include the separate npm
+`crumbless-mcp` launcher or native Windows support.
 
-## npm
+The installer requires an actual published release. If the releases page is empty, use the
+[source instructions](../README.md#from-source), not npm or Homebrew as an assumed fallback.
 
-The publishable package is built into `dist-npm/` (Node-targeted bundles, no Bun required at runtime):
+After a release is published:
 
 ```bash
-bun run build:npm
-cd dist-npm && npm publish --access public
+curl -sSL https://raw.githubusercontent.com/crumblessai/crumbless-cli/main/scripts/install.sh | bash
+crumbless login
+crumbless update
 ```
 
-CI does this on every `v*` tag when the `NPM_TOKEN` repository secret is set
-(npm Access Token with publish rights for `crumbless-cli`).
+Piped and noninteractive installs skip optional skill setup. Use the separate
+[skill instructions](../README.md#3-agent-skill--plugins) to add it. Noninteractive calls to
+`install-skill.sh` require `--project` or `--global` so the destination is explicit.
 
-One-time npm setup:
+## Source, workflow, and version contract
 
-1. Create the package scope/name on [npmjs.com](https://www.npmjs.com) if needed (`crumbless-cli`).
-2. Create a granular access token (read/write for `crumbless-cli`) or classic automation token.
-3. Add it as GitHub Actions secret `NPM_TOKEN` on this repo.
-4. Push a tag: `git tag cli-v0.1.0 && git push origin cli-v0.1.0`.
+The app repository is the source of truth under `cli/`. The public `crumblessai/crumbless-cli`
+repository is its distribution mirror. Release automation runs in the **app repository's**
+`.github/workflows/cli-release.yml`, not in the public mirror.
 
-Optional: configure [Trusted Publishing](https://docs.npmjs.com/trusted-publishers) for
-`crumblessai/crumbless-cli` → workflow `cli-release.yml` and drop the token later.
+| Value | Format |
+|-------|--------|
+| App source release tag | `cli-vX`, where `X` is a valid semantic version |
+| Embedded CLI and package version | `X` |
+| Public CLI release tag | `vX` |
 
-## Homebrew
+The public tag targets a commit resolved in the public repository. A private app commit is
+not a valid substitute. Prerelease versions are marked as prereleases rather than becoming
+ordinary stable releases.
 
-Formula: [`Formula/crumbless.rb`](../Formula/crumbless.rb). A Homebrew tap must be its own
-repository, so the formula is published to [`crumblessai/homebrew-tap`](https://github.com/crumblessai/homebrew-tap)
-(create it once by copying the formula from this repo):
+PRs and manual workflow runs produce validation artifacts only. **Manually selecting a tag
+does not publish it.** Only an app-repository CLI-tag push can enter publishing steps; their
+authorization reads immutable GitHub event/ref data, not an overridable environment flag.
+
+## Maintainer gates before a release
+
+- **G1 — Review and merge the source changes.** A preparation PR is not a deployment or release.
+- **G2 — Reconcile the public mirror.** Verify that public `main` corresponds to the CLI source
+  being released, accounting for the version stamp applied by the build. Do not reset divergent
+  work or force-push merely to make histories match.
+- **G3 — Configure and authorize publishing.** Store `CLI_RELEASE_TOKEN` in **crumbless-app →
+  Settings → Secrets and variables → Actions**. It needs Contents read/write on
+  `crumblessai/crumbless-cli` only. Do not put it in `.env`, source files, or chat. Pushing the
+  approved `cli-vX` tag in the app repository intentionally publishes public `vX`.
+- **G4 — Check the actual result.** Confirm the workflow result, every release asset and its
+  checksum, anonymous download/install, and the installed CLI version. A saved secret or a green
+  local build does not prove publishing permissions or a successful release.
+
+The mirror export helper belongs to the app repository. Its preview mutates local state and
+its publishing path can force-push; it is not a harmless validation command. Review its target
+and obtain publishing approval before using it.
+
+## Build and artifact checks
+
+The builder fails if compilation or archiving fails, if any required output is absent/empty,
+or if stale files would otherwise disguise an incomplete build. Its target registry also supplies
+the verified artifact inventory, so CI does not maintain a second platform list.
+
+From this CLI directory:
 
 ```bash
-brew tap crumblessai/tap https://github.com/crumblessai/homebrew-tap
-brew install crumbless
-crumbless --version
-```
-
-On each `cli-v*` release, CI on `crumblessai/crumbless-cli`:
-
-1. Builds `crumbless-<platform>` binaries and `.tar.gz` archives
-2. Attaches them to the GitHub Release (raw binaries keep `install.sh` working)
-3. Rewrites formula `version` + `sha256` via `scripts/update-homebrew-formula.sh`
-4. Commits the formula bump to `main` here; pushes it to the tap when the `TAP_TOKEN`
-   secret is set
-
-Users update with:
-
-```bash
-brew update && brew upgrade crumbless
-```
-
-## Local smoke checks
-
-```bash
+bun install --frozen-lockfile
+bun run typecheck
 bun test
+bun run build:all
+bun run scripts/build.ts --all --verify
+```
+
+`--verify` checks existing outputs without rebuilding and prints their filenames. CI hashes only
+that inventory, rejects unsafe filenames, and shares the same explicit file list between release
+uploads and validation artifacts. A missing file stops publication; a wildcard matching some
+other platform is not enough.
+
+On Linux x64, smoke-test the built executable with:
+
+```bash
+./dist/crumbless-linux-x64 --help
+./dist/crumbless-linux-x64 --version
+tar -tzf dist/crumbless-linux-x64.tar.gz
+```
+
+Use the matching executable on other supported hosts. Validation artifacts are not public
+releases. Publishing steps do not commit or push changes to app `main` or a Homebrew tap.
+
+## Deferred channels
+
+### npm
+
+npm publishing is **default-off**. The app Actions variable `CLI_PUBLISH_NPM` must explicitly be
+`true` before npm building/publishing is enabled. The retained token-based path also requires
+`NPM_TOKEN`; if it is intentionally enabled without that credential, preflight fails before any
+publication. Runtime environment variables cannot override this repository policy.
+
+Do not configure npm credentials for the GitHub-binaries-first release. An npm account with 2FA
+and trusted publishing is the preferred later setup, but it requires separate configuration.
+This change does not configure OIDC or claim that the npm package is published.
+
+The local npm bundle contains the CLI and the Node-based MCP launcher:
+
+```bash
 bun run build:npm
 node dist-npm/cli.js --help
-node dist-npm/cli.js --version
 ```
+
+These commands build locally; they do not publish. Until the npm channel is announced, use the
+standalone CLI or the [source-run MCP setup](mcp.md).
+
+### Homebrew and hosted MCP
+
+The formula and `scripts/update-homebrew-formula.sh` remain available for later Homebrew work.
+A tap repository, verified formula/checksums, and publishing setup are still required; the binary
+release workflow does not update the formula or push a tap automatically.
+
+Hosted MCP at `mcp.crumbless.ai` is not deployed yet. Its configuration examples are preparation,
+not evidence that the endpoint is available. Source-run stdio remains the documented alternative.

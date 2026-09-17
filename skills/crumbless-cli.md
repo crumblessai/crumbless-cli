@@ -1,5 +1,9 @@
 # Crumbless Skill (MCP + CLI)
 
+> **Hosted MCP is not deployed yet.** Use source-run stdio from a Bun checkout. The initial
+> standalone download contains the CLI only, not the deferred npm `crumbless-mcp` launcher.
+> The installer requires a published GitHub release; use source commands until one exists.
+
 Flat copy for Claude Code / multi-tool installers.  
 **Canonical publishable skill:** [`crumbless/SKILL.md`](./crumbless/SKILL.md) (Agent Skills / skills.sh).
 

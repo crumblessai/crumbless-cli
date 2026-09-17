@@ -2,8 +2,11 @@
 
 > **`mcp.crumbless.ai` is not deployed yet.** The code, the OAuth routes and the
 > Vercel build are all in this repo — the host simply has not been stood up. Until
-> it is, use **stdio** or **HTTP local**, which work today against any app instance.
+> it is, use **stdio** or **HTTP local** from a source checkout.
 > Do not send a Bearer token to that hostname before it resolves to us.
+>
+> The first standalone download contains the CLI only. The separate npm `crumbless-mcp`
+> launcher is deferred; installing the CLI binary does not install MCP source files.
 
 
 Crumbless exposes a [Model Context Protocol](https://modelcontextprotocol.io) server so coding agents
@@ -22,11 +25,12 @@ Crumbless API  (/api/v1/*)
 
 ### Option A — Local stdio (simplest)
 
-1. Install [Bun](https://bun.sh) and clone the repo (or install the CLI binary).
-2. Authenticate once:
+1. Install [Bun](https://bun.sh), clone the repo, and run `bun install --frozen-lockfile`.
+2. Authenticate from that source checkout:
 
 ```bash
-crumbless login
+bun run cli.ts login
+# or use crumbless login if the standalone CLI is installed
 # or, after MCP is connected, call the `login` tool
 ```
 
@@ -47,7 +51,7 @@ crumbless login
 
 Session file (shared with the CLI): `~/.config/crumbless/session.json`.
 
-### Option B — Remote HTTP (`mcp.crumbless.ai`)
+### Option B — Remote HTTP reference (after deployment)
 
 1. Confirm the server is up:
 

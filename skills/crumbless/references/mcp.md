@@ -2,8 +2,11 @@
 
 > **`mcp.crumbless.ai` is not deployed yet.** The code, the OAuth routes and the
 > Vercel build are all in this repo — the host simply has not been stood up. Until
-> it is, use **stdio** or **HTTP local**, which work today against any app instance.
+> it is, use **stdio** or **HTTP local** from a source checkout.
 > Do not send a Bearer token to that hostname before it resolves to us.
+>
+> The first standalone download contains the CLI only. The separate npm `crumbless-mcp`
+> launcher is deferred; installing the CLI binary does not install MCP source files.
 
 
 Model Context Protocol server for Crumbless. Same HTTPS client and OAuth as the CLI.
@@ -37,7 +40,7 @@ OAuth resource metadata: `GET /.well-known/oauth-protected-resource`.
 
 ### Cursor — stdio (recommended locally)
 
-Clone or install the repo, then in Cursor MCP settings:
+Clone the repo and run `bun install --frozen-lockfile`, then in Cursor MCP settings:
 
 ```json
 {
@@ -50,7 +53,8 @@ Clone or install the repo, then in Cursor MCP settings:
 }
 ```
 
-If the binary is on `PATH` after install:
+After the separate npm package is published and installed, its launcher can be used on `PATH`
+(the standalone CLI binary does not provide it):
 
 ```json
 {

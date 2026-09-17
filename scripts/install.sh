@@ -175,19 +175,18 @@ $SUDO mv "$TEMP_FILE" "${INSTALL_DIR}/${BINARY_NAME}" || fatal "Installation fai
 
 success "Crumbless CLI installed to ${INSTALL_DIR}/${BINARY_NAME}"
 
-# Install AI skill (ask user)
+# A piped installer uses stdin for code, not optional skill answers.
 echo ""
-read -p "  Installare la skill per AI coding assistants? [Y/n]: " install_skill
-if [[ "$install_skill" != "n" && "$install_skill" != "N" ]]; then
+if [[ -t 0 ]] && read -r -p "  Installare la skill per AI coding assistants? [Y/n]: " install_skill &&
+  [[ "$install_skill" != "n" && "$install_skill" != "N" ]]; then
   echo ""
   echo "  1) Progetto corrente (.claude/skills/, .cursorrules, etc.)"
   echo "  2) Globale (~/.claude/skills/)"
-  read -p "  Scelta [1/2]: " skill_choice
-  echo ""
-
   SKILL_URL="https://raw.githubusercontent.com/crumblessai/crumbless-cli/main/skills/crumbless-cli.md"
 
-  if [[ "$skill_choice" == "2" ]]; then
+  if ! read -r -p "  Scelta [1/2]: " skill_choice; then
+    warn "Skill installation skipped."
+  elif [[ "$skill_choice" == "2" ]]; then
     # Global install
     CLAUDE_SKILLS_DIR="$HOME/.claude/skills"
     mkdir -p "$CLAUDE_SKILLS_DIR"

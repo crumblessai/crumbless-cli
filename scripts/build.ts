@@ -7,17 +7,21 @@
  *   bun run scripts/build.ts          # Build for current platform
  *   bun run scripts/build.ts --all    # Build for all platforms
  *   bun run scripts/build.ts --linux  # Build for Linux only
+ *   bun run scripts/build.ts --all --verify  # Verify and list outputs without rebuilding
  */
 
-import { mkdirSync, existsSync, cpSync } from 'fs';
+import { mkdirSync, existsSync, cpSync, statSync, rmSync } from 'fs';
 import { join } from 'path';
 
 const ROOT = join(import.meta.dir, '..');
 const DIST = join(ROOT, 'dist');
 
-// Ensure dist directory
-if (!existsSync(DIST)) {
-  mkdirSync(DIST, { recursive: true });
+function requireOutput(path: string) {
+  const output = statSync(path, { throwIfNoEntry: false });
+  if (!output?.isFile() || output.size === 0) {
+    console.error(`Missing or empty build output: ${path}`);
+    process.exit(1);
+  }
 }
 
 // Platform targets
@@ -56,6 +60,28 @@ if (!buildAll) {
   }
 }
 
+const outputNames = selectedTargets.flatMap(({ name }) => [
+  `crumbless-${name}`,
+  `crumbless-${name}.tar.gz`,
+]);
+
+function verifyOutputs() {
+  for (const name of outputNames) {
+    requireOutput(join(DIST, name));
+  }
+}
+
+// CI gets its artifact inventory from the same targets used by the compiler.
+if (args.includes('--verify')) {
+  verifyOutputs();
+  console.log(outputNames.join('\n'));
+  process.exit(0);
+}
+
+if (!existsSync(DIST)) {
+  mkdirSync(DIST, { recursive: true });
+}
+
 console.log(`Building Crumbless CLI for: ${selectedTargets.map(t => t.name).join(', ')}\n`);
 
 // Build each target
@@ -64,6 +90,10 @@ for (const target of selectedTargets) {
   const outPath = join(DIST, outName);
 
   console.log(`  Building ${outName}...`);
+
+  // Old artifacts must not make an incomplete build look successful.
+  rmSync(outPath, { force: true });
+  rmSync(`${outPath}.tar.gz`, { force: true });
 
   const proc = Bun.spawnSync([
     'bun', 'build',
@@ -80,9 +110,10 @@ for (const target of selectedTargets) {
 
   if (proc.exitCode !== 0) {
     console.error(`  ✗ Failed to build ${outName}`);
-    continue;
+    process.exit(1);
   }
 
+  requireOutput(outPath);
   console.log(`  ✓ ${outName} (${(Bun.file(outPath).size / 1024 / 1024).toFixed(1)} MB)`);
 }
 
@@ -105,7 +136,7 @@ try {
 for (const target of selectedTargets) {
   const outName = `crumbless-${target.name}`;
   const outPath = join(DIST, outName);
-  if (!existsSync(outPath)) continue;
+  requireOutput(outPath);
   const tarPath = `${outPath}.tar.gz`;
   const tar = Bun.spawnSync(['tar', '-czf', tarPath, '-C', DIST, outName], {
     cwd: ROOT,
@@ -114,11 +145,13 @@ for (const target of selectedTargets) {
   });
   if (tar.exitCode !== 0) {
     console.error(`  ✗ Failed to archive ${outName}`);
-    continue;
+    process.exit(1);
   }
+  requireOutput(tarPath);
   console.log(`  ✓ ${outName}.tar.gz`);
 }
 
+verifyOutputs();
 console.log('\nDone! Binaries are in dist/');
 console.log('\nTo install locally:');
 console.log('  sudo cp dist/crumbless-macos-arm64 /usr/local/bin/crumbless');

@@ -8,9 +8,9 @@
 #   Antigravity CLI, and any tool that reads AGENTS.md or llms.txt
 #
 # Usage:
-#   curl -sSL https://crumbless.ai/install-skill.sh | bash              # Interactive
-#   curl -sSL https://crumbless.ai/install-skill.sh | bash -s -- --global   # Global
-#   curl -sSL https://crumbless.ai/install-skill.sh | bash -s -- --project  # Current project
+#   bash scripts/install-skill.sh  # Interactive, from a source checkout
+#   curl -sSL https://raw.githubusercontent.com/crumblessai/crumbless-cli/main/scripts/install-skill.sh | bash -s -- --global
+#   curl -sSL https://raw.githubusercontent.com/crumblessai/crumbless-cli/main/scripts/install-skill.sh | bash -s -- --project
 #
 
 set -euo pipefail
@@ -129,7 +129,8 @@ while [[ $# -gt 0 ]]; do
     --global)   MODE="global"; shift ;;
     --project)  MODE="project"; shift ;;
     -h|--help)
-      echo "Usage: curl -sSL https://crumbless.ai/install-skill.sh | bash"
+      echo "Usage: bash scripts/install-skill.sh [--global | --project]"
+      echo "Noninteractive installation requires --global or --project."
       echo ""
       echo "Options:"
       echo "  --global    Install globally (~/.claude/skills/ + ~/.cursor/skills/)"
@@ -181,14 +182,22 @@ echo ""
 echo -e "${BOLD}Crumbless CLI — AI Skill Installer${NC}"
 echo ""
 
-# Ask mode if not specified
+# Never read script text as an installation destination.
 if [[ -z "$MODE" ]]; then
+  if [[ ! -t 0 ]]; then
+    echo "Noninteractive skill installation requires --project or --global." >&2
+    exit 1
+  fi
+
   echo "  Dove vuoi installare la skill?"
   echo ""
   echo "  1) Progetto corrente (tutti i tool)"
   echo "  2) Globale (~/.claude/skills/)"
   echo ""
-  read -p "  Scelta [1/2]: " choice
+  if ! read -r -p "  Scelta [1/2]: " choice; then
+    echo "No installation scope selected." >&2
+    exit 1
+  fi
   case "$choice" in
     2) MODE="global" ;;
     *) MODE="project" ;;

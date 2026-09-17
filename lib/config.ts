@@ -11,18 +11,10 @@
 const LOCAL_URL = 'http://localhost:5173';
 
 /**
- * Canonical production origin — **www, not the apex**.
- *
- * `https://crumbless.ai` 308-redirects to `https://www.crumbless.ai`, which is a *cross-origin*
- * redirect, and fetch drops the `Authorization` header across origins. Every API call made
- * against the apex therefore arrives unauthenticated and the server answers
- * `401 {"error":"Missing or invalid Authorization header"}` — which reads like a broken login
- * but is really a redirect eating the token. Point at the host that answers directly.
- *
- * Single source of truth on purpose: this literal used to be copy-pasted into api.ts, auth.ts,
- * health.ts and the MCP HTTP layer, so the bug had to be fixed in six places or none.
+ * Application origin, not the crumbless.ai marketing site, which does not serve login or API routes.
+ * Keep one origin across CLI and MCP: cross-origin redirects can drop Authorization headers.
  */
-export const PRODUCTION_URL = 'https://www.crumbless.ai';
+export const PRODUCTION_URL = 'https://www.crumbless.app';
 
 /** Resolved API/base origin: explicit override, else auto-detected dev server, else production. */
 export function appUrl(): string {
@@ -31,29 +23,15 @@ export function appUrl(): string {
 
 const isLocal = (url: string) => /^https?:\/\/(localhost|127\.0\.0\.1|\[::1\])/.test(url);
 
-/**
- * Identificativo dell'authorization server annunciato ai client MCP in `authorization_servers`
- * (RFC 9728, `/.well-known/oauth-protected-resource`). È **www**, come PRODUCTION_URL.
- *
- * Qui c'era l'apex, in coppia con `issuerFor()` di 021-app. Il vincolo RFC 8414 è reale — il
- * client prende questa stringa, ci attacca `/.well-known/oauth-authorization-server`, e pretende
- * che l'`issuer` nel JSON sia identico — ma l'apex non serve quel JSON: `https://crumbless.ai`
- * 308-redirecta a www a livello di dominio Vercel. Un client che non segue i redirect in
- * discovery (Smithery) muore prima di vedere i metadata:
- *   {"code":"oauth/auth_server_discovery_http_error", "status":308}
- *
- * www è l'unico host che risponde 200, quindi l'identificatore è www da entrambe le parti.
- * Resta decoupled da appUrl() perché un PUBLIC_APP_URL di dev deve comunque vincere: in locale
- * l'OAuth punta al dev server.
- */
+/** Authorization metadata uses the application origin, with loopback overrides for development. */
 export function authServerUrl(): string {
   const app = appUrl();
   return isLocal(app) ? app : PRODUCTION_URL;
 }
 
-// Public Supabase keys (safe to embed — anon key, no secrets)
-process.env.PUBLIC_SUPABASE_URL ??= 'https://kszazivzwievqixcnanp.supabase.co';
-process.env.PUBLIC_SUPABASE_ANON_KEY ??= 'sb_publishable_gXzHd-4PxJ8UJ-US7mO15Q_bgiGGHvB';
+// Public anon configuration advertised by the app; never a service-role credential.
+process.env.PUBLIC_SUPABASE_URL ??= 'https://auth.crumbless.app';
+process.env.PUBLIC_SUPABASE_ANON_KEY ??= 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzg4NjIyMDI4LCJleHAiOjIxMDM5ODIwMjh9.CvieaTXzsv8zqMJ2Wjrduajs_r3w5feqC8Tj5Rd5GEo';
 
 let resolved = false;
 

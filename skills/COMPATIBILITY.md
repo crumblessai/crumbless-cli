@@ -1,5 +1,9 @@
 # AI Coding Tools — skill compatibility
 
+> **Hosted MCP is not deployed yet.** GitHub skill installation is independent of npm
+> publishing. For MCP, use the source-run stdio setup: the standalone CLI binary does not
+> include the deferred npm `crumbless-mcp` launcher.
+
 ## Publishable Agent Skill (recommended)
 
 Package: [`skills/crumbless/`](./crumbless/) — follows [agentskills.io](https://agentskills.io/specification).  

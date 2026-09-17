@@ -1,5 +1,10 @@
 # Crumbless plugin — Claude Code & Codex submit
 
+> **Hosted MCP is not deployed yet.** The skill is installable from GitHub, but the remote
+> configuration and submission steps below are preparation until hosting is verified.
+> The initial standalone CLI release does not include the npm `crumbless-mcp` launcher;
+> use the [source-run stdio setup](mcp.md) instead.
+
 The installable plugin lives in [`plugins/crumbless/`](../plugins/crumbless/). It bundles:
 
 - Agent skill → `skills/crumbless/` (`SKILL.md` + `references/`)
