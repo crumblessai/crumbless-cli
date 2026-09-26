@@ -188,9 +188,12 @@ Submit checklist (Claude community directory + OpenAI Plugins Directory): **[`do
 
 ## Configuration
 
-Zero config by default → `https://www.crumbless.app`, with the application's public auth
-configuration at `https://auth.crumbless.app`. `crumbless.ai` is the marketing site, not the
-login/API origin. A local development app can still be detected on port 5173.
+CLI/MCP use an explicit, nonempty `PUBLIC_APP_URL` without probing for a local app. Otherwise,
+they detect a local development app on port 5173 and fall back to `https://crumbless.app`.
+Vercel and `MCP_REQUIRE_BEARER=1` skip local detection.
+
+The production public auth configuration is at `https://auth.crumbless.app`.
+`crumbless.ai` is the marketing site, not the login/API origin.
 
 | Variable | Purpose |
 |----------|---------|

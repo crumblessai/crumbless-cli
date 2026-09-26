@@ -9,7 +9,7 @@ export function createCrumblessMcpServer(): McpServer {
   const server = new McpServer(
     {
       name: 'crumbless',
-      version: '0.1.0',
+      version: '0.1.1',
       description:
         'Crumbless social media AI autopilot — manage brands, posts, plans, studio, SEO/GEO, and blog via OAuth.',
     },

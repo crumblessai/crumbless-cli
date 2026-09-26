@@ -119,7 +119,9 @@ Note: `--id` accepts the short prefix printed in the tables.
 
 ## Environment
 
-- `PUBLIC_APP_URL` — Backend URL (default: http://localhost:5173)
+- `PUBLIC_APP_URL` — Explicit backend URL, always respected when nonempty. If unset or empty,
+  CLI/MCP detect a local app on port 5173, then fall back to https://crumbless.app.
+  Vercel and `MCP_REQUIRE_BEARER=1` skip local detection.
 
 ## Auth
 

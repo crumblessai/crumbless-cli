@@ -3,6 +3,46 @@ import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { appUrl, authServerUrl, PRODUCTION_URL } from './config.ts';
 
+function resolvedConfig(
+  overrides: Record<string, string> = {},
+  probe: 'available' | 'unavailable' = 'available',
+) {
+  const moduleUrl = new URL('./config.ts', import.meta.url).href;
+  const script = `
+    const { appUrl, authServerUrl, loadEnv } = await import(${JSON.stringify(moduleUrl)});
+    const UNAUTHORIZED = 401;
+    let requests = [];
+    globalThis.fetch = async (url, options) => {
+      requests = [...requests, { url: String(url), method: options?.method }];
+      if (${JSON.stringify(probe)} === 'unavailable') {
+        throw new Error('No development server');
+      }
+      return new Response(null, { status: UNAUTHORIZED });
+    };
+    await loadEnv();
+    await loadEnv();
+    console.log(JSON.stringify({
+      url: process.env.PUBLIC_APP_URL,
+      app: appUrl(),
+      auth: authServerUrl(),
+      requests,
+    }));
+  `;
+  const result = spawnSync(process.execPath, ['--no-env-file', '--eval', script], {
+    env: { PATH: process.env.PATH ?? '', ...overrides },
+    encoding: 'utf8',
+    timeout: 5_000,
+  });
+  expect(result.error).toBeUndefined();
+  expect(result.status).toBe(0);
+  return JSON.parse(result.stdout) as {
+    url: string;
+    app: string;
+    auth: string;
+    requests: { url: string; method: string }[];
+  };
+}
+
 function configDefaults(overrides: Record<string, string> = {}) {
   const moduleUrl = new URL('./config.ts', import.meta.url).href;
   const script = `
@@ -17,7 +57,7 @@ function configDefaults(overrides: Record<string, string> = {}) {
       role,
     }));
   `;
-  const result = spawnSync(process.execPath, ['--eval', script], {
+  const result = spawnSync(process.execPath, ['--no-env-file', '--eval', script], {
     env: { PATH: process.env.PATH ?? '', ...overrides },
     encoding: 'utf8',
     timeout: 5_000,
@@ -56,9 +96,9 @@ afterEach(() => {
 describe('appUrl', () => {
   // The .ai marketing site returns 404 for the application's login and API routes.
   test('production base is the application origin, not the marketing website', () => {
-    expect(PRODUCTION_URL).toBe('https://www.crumbless.app');
+    expect(PRODUCTION_URL).toBe('https://crumbless.app');
     delete process.env.PUBLIC_APP_URL;
-    expect(appUrl()).toBe('https://www.crumbless.app');
+    expect(appUrl()).toBe('https://crumbless.app');
   });
 
   test('an explicit PUBLIC_APP_URL wins, trailing slash stripped', () => {
@@ -67,10 +107,75 @@ describe('appUrl', () => {
   });
 });
 
+describe('loadEnv', () => {
+  test('an explicit production default never probes an available development server', () => {
+    const result = resolvedConfig({ PUBLIC_APP_URL: PRODUCTION_URL });
+    expect(result.url).toBe(PRODUCTION_URL);
+    expect(result.requests).toEqual([]);
+  });
+
+  test.each([
+    'https://crumbless.app',
+    'https://crumbless.app/',
+    'https://instance.example.invalid',
+    'http://localhost:5173',
+    'http://127.0.0.1:8000/',
+  ])('preserves explicit override %s without probing', (url) => {
+    const result = resolvedConfig({ PUBLIC_APP_URL: url });
+    expect(result.url).toBe(url);
+    expect(result.app).toBe(url.replace(/\/$/, ''));
+    expect(result.requests).toEqual([]);
+  });
+
+  test.each([undefined, ''])('detects an available local server once with override %s', (url) => {
+    const result = resolvedConfig(url === undefined ? {} : { PUBLIC_APP_URL: url });
+    expect(result.url).toBe('http://localhost:5173');
+    expect(result.app).toBe('http://localhost:5173');
+    expect(result.auth).toBe('http://localhost:5173');
+    expect(result.requests).toEqual([{ url: 'http://localhost:5173/api/v1/brands', method: 'HEAD' }]);
+  });
+
+  test.each([undefined, ''])('falls back to the canonical origin once with override %s', (url) => {
+    const result = resolvedConfig(url === undefined ? {} : { PUBLIC_APP_URL: url }, 'unavailable');
+    expect(result.url).toBe('https://crumbless.app');
+    expect(result.app).toBe('https://crumbless.app');
+    expect(result.auth).toBe('https://crumbless.app');
+    expect(result.requests).toEqual([{ url: 'http://localhost:5173/api/v1/brands', method: 'HEAD' }]);
+  });
+
+  for (const mode of ['VERCEL', 'MCP_REQUIRE_BEARER']) {
+    test(`${mode} skips local detection and defaults to the canonical origin`, () => {
+      const result = resolvedConfig({ [mode]: '1' });
+      expect(result.url).toBe('https://crumbless.app');
+      expect(result.app).toBe('https://crumbless.app');
+      expect(result.auth).toBe('https://crumbless.app');
+      expect(result.requests).toEqual([]);
+    });
+
+    test.each(['https://crumbless.app/', 'https://instance.example.invalid'])(
+      `${mode} preserves explicit override %s without probing`,
+      (url) => {
+        const result = resolvedConfig({ [mode]: '1', PUBLIC_APP_URL: url });
+        expect(result.url).toBe(url);
+        expect(result.app).toBe(url.replace(/\/$/, ''));
+        expect(result.auth).toBe('https://crumbless.app');
+        expect(result.requests).toEqual([]);
+      },
+    );
+
+    test(`${mode} treats an empty override as the canonical origin without probing`, () => {
+      const result = resolvedConfig({ [mode]: '1', PUBLIC_APP_URL: '' });
+      expect(result.app).toBe('https://crumbless.app');
+      expect(result.auth).toBe('https://crumbless.app');
+      expect(result.requests).toEqual([]);
+    });
+  }
+});
+
 describe('authServerUrl', () => {
   test('announces the same production application origin as the CLI', () => {
     delete process.env.PUBLIC_APP_URL;
-    expect(authServerUrl()).toBe('https://www.crumbless.app');
+    expect(authServerUrl()).toBe('https://crumbless.app');
     expect(authServerUrl()).toBe(appUrl());
   });
 

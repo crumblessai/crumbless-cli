@@ -2,7 +2,7 @@
  * Configuration for the Crumbless CLI.
  * All values are public (no secrets) — hardcoded for zero-config installation.
  *
- * The CLI auto-detects if a local dev server is running on localhost:5174.
+ * The CLI auto-detects if a local dev server is running on localhost:5173.
  * If yes, uses it. Otherwise, uses the production URL.
  *
  * Override with: PUBLIC_APP_URL=http://my-server:3000 crumbless brands
@@ -14,7 +14,7 @@ const LOCAL_URL = 'http://localhost:5173';
  * Application origin, not the crumbless.ai marketing site, which does not serve login or API routes.
  * Keep one origin across CLI and MCP: cross-origin redirects can drop Authorization headers.
  */
-export const PRODUCTION_URL = 'https://www.crumbless.app';
+export const PRODUCTION_URL = 'https://crumbless.app';
 
 /** Resolved API/base origin: explicit override, else auto-detected dev server, else production. */
 export function appUrl(): string {
@@ -46,7 +46,7 @@ export async function loadEnv() {
   }
 
   // If user explicitly set PUBLIC_APP_URL, use it
-  if (process.env.PUBLIC_APP_URL && process.env.PUBLIC_APP_URL !== PRODUCTION_URL) {
+  if (process.env.PUBLIC_APP_URL) {
     resolved = true;
     return;
   }
