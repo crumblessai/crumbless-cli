@@ -201,19 +201,21 @@ export async function startBrowserLogin(
   });
 
   const loginUrl = `${appUrl}/login?cli_port=${port}&cli_state=${state}`;
-  onStatus('Apertura browser per il login…');
-  const { default: open } = await import('open');
-  await open(loginUrl);
-  onStatus('Browser aperto — accedi e premi "Autorizza" per completare.');
-
-  const timeout = new Promise<never>((_, reject) =>
-    setTimeout(() => reject(new Error('Timeout: nessun login nei 5 minuti')), 5 * 60 * 1000)
-  );
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
   try {
+    onStatus('Apertura browser per il login…');
+    const { default: open } = await import('open');
+    await open(loginUrl);
+    onStatus('Browser aperto — accedi e premi "Autorizza" per completare.');
+
+    const timeout = new Promise<never>((_, reject) => {
+      timeoutId = setTimeout(() => reject(new Error('Timeout: nessun login nei 5 minuti')), 5 * 60 * 1000);
+    });
     const session = await Promise.race([settled, timeout]);
     return session;
   } finally {
+    clearTimeout(timeoutId);
     await new Promise<void>((resolve) => server.close(() => resolve()));
   }
 }

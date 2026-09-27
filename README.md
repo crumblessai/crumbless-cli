@@ -231,6 +231,9 @@ Skill ─┘   (guides agents to CLI or MCP)
 
 ## Development
 
+Development checks require Bun and Node.js. Login lifecycle tests use a closed dependency
+fixture rather than a real credential profile.
+
 ```bash
 bun install
 bun run cli.ts --help

@@ -12,7 +12,7 @@ program.hook('preAction', () => assertEnv());
 program
   .name('crumbless')
   .description('CLI per gestire Crumbless — social media AI autopilot')
-  .version('0.1.1')
+  .version('0.1.2')
   .addHelpText('after', `
 Esempi:
   $ crumbless brands                   Lista tutti i brand
